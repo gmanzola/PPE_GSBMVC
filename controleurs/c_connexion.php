@@ -21,11 +21,9 @@ switch($action){
             $nom = $visiteur['nom'];
             $prenom = $visiteur['prenom'];
             connecter($id, $nom, $prenom);
-
             $group_id = $visiteur['typeCompte'];
             $group_type = $visiteur['type'];
             connecter($id, $nom, $prenom, $group_id, $group_type);
-
             if ($group_id == 2) {
                 // Rediriger l'utilisateur après la connexion
                 header("Location: index.php?uc=validerFrais&action=validerFrais");
