@@ -301,5 +301,24 @@ class PdoGsb{
 		where fichefrais.idvisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";
 		PdoGsb::$monPdo->exec($req);
 	}
+	
+	public function getLesVisiteurs() {
+		$req = "select id, nom, prenom from visiteur order by nom asc";
+		$res = PdoGsb::$monPdo->query($req);
+		$lesVisiteurs = array();
+		$laLigne = $res->fetch();
+		while ($laLigne != null) {
+			$id = $laLigne['id'];
+			$nom = $laLigne['nom'];
+			$prenom = $laLigne['prenom'];
+			$lesVisiteurs["$id"] = array(
+					"id" => "$id",
+					"nom" => "$nom",
+					"prenom" => "$prenom"
+			);
+			$laLigne = $res->fetch();
+		}
+		return $lesVisiteurs;
+	}
 }
 ?>

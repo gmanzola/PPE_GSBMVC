@@ -27,6 +27,10 @@ switch($uc) {
         include("controleurs/c_validerFrais.php");
         break;
     }
+    case "validerfichefrais": {
+    	include("controleurs/c_validerfichefrais.php");
+    	break;
+    }
 }
 include("vues/v_pied.php") ;
 ?>
