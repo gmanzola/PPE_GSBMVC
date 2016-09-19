@@ -26,7 +26,7 @@ switch($action){
             connecter($id, $nom, $prenom, $group_id, $group_type);
             if ($group_id == 2) {
                 // Rediriger l'utilisateur après la connexion
-                header("Location: index.php?uc=validerFrais&action=validerFrais");
+                header("Location: index.php?uc=validerFrais&action=choisirVisiteur");
                 include("vues/v_sommaireComptable.php");
             } else {
                 // Rediriger l'utilisateur après la connexion

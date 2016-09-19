@@ -58,7 +58,7 @@ switch ($action) {
     case 'supprimer': {
             $id = $_REQUEST['id'];
             $pdo->refuserfrais($id);
-            header('Location: index.php?uc=validerfichefrais&action=fiche');
+            header('Location: index.php?uc=validerFrais&action=fiche');
             break;
         }
     case 'reporter': {
@@ -73,7 +73,7 @@ switch ($action) {
             $pdo->creeNouvellesLignesFrais($idVisiteur, $MoisPlus);
             $req = "UPDATE `lignefraisforfait` SET `mois`='" . $MoisPlus . "' WHERE `idVisiteur`='" . $idVisiteur . "' and `idFraisForfait`='" . $id . "'";
             //} 
-            //header('Location: index.php?uc=validerfichefrais&action=fiche');
+            //header('Location: index.php?uc=validerFrais&action=fiche');
             break;
         }
 }
@@ -83,3 +83,5 @@ else{
 	include("vues/accesInterdit.php");
 }
 ?>
+    </body>
+</html>

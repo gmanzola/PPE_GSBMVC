@@ -1,7 +1,7 @@
 <?php
+include("vues/v_entete.php") ;
 require_once("include/fct.inc.php");
 require_once ("include/class.pdogsb.inc.php");
-include("vues/v_entete.php") ;
 session_start();
 $pdo = PdoGsb::getPdoGsb();
 $estConnecte = estConnecte();
@@ -28,7 +28,7 @@ switch($uc) {
         break;
     }
     case "validerfichefrais": {
-    	include("controleurs/c_validerfichefrais.php");
+    	include("controleurs/c_validerFrais.php");
     	break;
     }
 }

@@ -203,4 +203,26 @@ function nbErreurs(){
 	   return count($_REQUEST['erreurs']);
 	}
 }
+
+function getLesSixDerniersMois() {
+	$lesMois = array('', 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre');
+	$date = date('n');
+	$sixMois = array();
+	for ($i = 0; $i <= 5; $i++) {
+		$sixMois['libelle'][] = $lesMois[date("n", strtotime("-$i months"))] . " " . date("Y", strtotime("-$i months"));
+		$sixMois['id'][] = date("Y", strtotime("-$i months")) . date("m", strtotime("-$i months"));
+	}
+	return $sixMois;
+}
+
+function getMoisNext($UneAnnee, $lemois) {
+	$lemois++;
+	if ($lemois < 10) {
+		$lemois = "0" . $lemois;
+	}
+	if ($lemois > 13) {
+		$UneAnnee++;
+		$lemois = "01";
+	}return $UneAnnee . $lemois;
+}
 ?>
