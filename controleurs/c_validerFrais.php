@@ -1,12 +1,12 @@
-<?php
+ï»¿<?php
 
 // Recuperation variable pour interdire acces au non comptable
 $group_id = $_SESSION['group_id'];
+$idvisiteur = $_SESSION['idvisiteur'];
 if ($group_id == 2) {
 	
 
 include("vues/v_sommaireComptable.php");
-$idVisiteur = $_SESSION['idVisiteur'];
 $mois = getMois(date("d/m/Y"));
 $numAnnee = substr($mois, 0, 4);
 $numMois = substr($mois, 4, 2);
@@ -26,33 +26,34 @@ switch ($action) {
             $lesClesV = array_keys($lesVisiteurs);
             $visiteurASelectionner = $lesClesV[0];
             $lastSixMonth = getLesSixDerniersMois();
-            $idVisiteur = isset($_REQUEST['lstVisiteurs']) ? $_REQUEST['lstVisiteurs'] : null;
+            $idvisiteur = isset($_REQUEST['lstVisiteurs']) ? $_REQUEST['lstVisiteurs'] : null;
             $leMois = isset($_REQUEST['lstMois']) ? $_REQUEST['lstMois'] : null;
-            if ($idVisiteur && $leMois) {
-                $_SESSION['idVisiteur'] = $idVisiteur;
+            if ($idvisiteur && $leMois) {
+                $_SESSION['idvisiteur'] = $idvisiteur;
                 $_SESSION['lstMois'] = $leMois;
-                $idVisiteur = $_SESSION['idVisiteur'];
+                $idvisiteur = $_SESSION['idvisiteur'];
                 $leMois = $_SESSION['lstMois'];
             }
-            $lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
+            $lesMois = $pdo->getLesMoisDisponibles($idvisiteur);
             include("vues/v_listevisiteur.php");
-            $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
-            $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $leMois);
-            $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $leMois);
+            // FAIRE UNE AUTRE VUE OU IL A QUE LA LISTE DES FRAIS ET LES INFOS DU VISITEUR MEDICAL SPECIFIQUE
+            $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idvisiteur, $leMois);
+            $lesFraisForfait = $pdo->getLesFraisForfait($idvisiteur, $leMois);
+            $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idvisiteur, $leMois);
             $numAnnee = substr($leMois, 0, 4);
             $numMois = substr($leMois, 4, 2);
-            $libEtat = $lesInfosFicheFrais['libEtat'];
-            $montantValide = $lesInfosFicheFrais['montantValide'];
-            $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
-            $dateModif = $lesInfosFicheFrais['dateModif'];
-            $dateModif = dateAnglaisVersFrancais($dateModif);
+            $libetat = $lesInfosFicheFrais['libetat'];
+            $montantvalide = $lesInfosFicheFrais['montantvalide'];
+            $nbjustificatifs = $lesInfosFicheFrais['nbjustificatifs'];
+            $datemodif = $lesInfosFicheFrais['datemodif'];
+            $datemodif = dateAnglaisVersFrancais($datemodif);
             include("vues/v_listefiche.php");
             break;
         }
     case 'modification': {
             $leMois = isset($_SESSION['lstMois']) ? $_SESSION['lstMois'] : null;
             $lesFrais = $_REQUEST['lesFrais'];
-            $pdo->majFraisForfait($idVisiteur, $leMois, $lesFrais);
+            $pdo->majFraisForfait($idvisiteur, $leMois, $lesFrais);
             break;
         }
     case 'supprimer': {
@@ -64,14 +65,14 @@ switch ($action) {
     case 'reporter': {
             $id = $_REQUEST['id'];
             $MoisPlus = getMoisNext($numAnnee, substr($_SESSION['lstMois'], 4, 2)); // appel de la fonction qui ajoute 1 au mois
-            // $ficheExiste = $pdo->estPremierFraisMois($idVisiteur,$MoisPlus); // un visiteur possède une fiche de frais pour le mois passé en argument
+            // $ficheExiste = $pdo->estPremierFraisMois($idvisiteur,$MoisPlus); // un visiteur possï¿½de une fiche de frais pour le mois passï¿½ en argument
             var_dump($MoisPlus);
-            var_dump($idVisiteur);
-            /* if ($pdo->estPremierFraisMois($idVisiteur, $MoisPlus)) {
+            var_dump($idvisiteur);
+            /* if ($pdo->estPremierFraisMois($idvisiteur, $MoisPlus)) {
               $pdo->getMoisSuivant($numAnnee, $MoisPlus, $id);
               } else { */
-            $pdo->creeNouvellesLignesFrais($idVisiteur, $MoisPlus);
-            $req = "UPDATE `lignefraisforfait` SET `mois`='" . $MoisPlus . "' WHERE `idVisiteur`='" . $idVisiteur . "' and `idFraisForfait`='" . $id . "'";
+            $pdo->creeNouvellesLignesFrais($idvisiteur, $MoisPlus);
+            $req = "UPDATE `lignefraisforfait` SET `mois`='" . $MoisPlus . "' WHERE `idvisiteur`='" . $idvisiteur . "' and `idFraisForfait`='" . $id . "'";
             //} 
             //header('Location: index.php?uc=validerFrais&action=fiche');
             break;

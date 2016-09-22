@@ -1,9 +1,9 @@
-<h3>Fiche de frais du mois <?php echo $numMois . "-" . $numAnnee ?> : 
+ï»¿<h3>Fiche de frais du mois <?php echo $numMois . "-" . $numAnnee ?> : 
 </h3>
 <div class="encadre">
     
     <form method="POST" action="index.php?uc=validerfichefrais&action=modification">
-          <caption>Eléments forfaitisés</caption>
+          <caption>Elements forfaitisÃ©s</caption>
         <table class="listeLegere">
             <tr>
                 <?php
@@ -21,7 +21,7 @@
                     $quantite = $unFraisForfait['quantite'];
                     $idFrais = $unFraisForfait['idfrais'];
                     ?>
-                    <td class="qteForfait"><input type="text" size="10" maxlength="5" name="lesFrais[<?php echo $idFrais ?>]" value="<?php echo $quantite ?> "></td>
+                    <td class="qteForfait"><input type="text" size="10" maxlength="5" name="lesFrais[<?php echo $idfrais ?>]" value="<?php echo $quantite ?> "></td>
 
 
                     <?php
@@ -31,11 +31,11 @@
         </table>
     </form>
     <table class="listeLegere">
-        <caption>Descriptif des éléments hors forfait -<?php echo $nbJustificatifs ?> justificatifs reçus -
+        <caption>Descriptif des Ã©lements hors forfait -<?php echo $nbjustificatifs ?> justificatifs reÃ§us -
         </caption>
         <tr>
             <th class="date">Date</th>
-            <th class="libelle">Libellé</th>
+            <th class="libelle">LibellÃ©</th>
             <th class='montant'>Montant</th> 
             <th class='supprimer'>Supprimer</th> 
             <th class='reporter'>Reporter</th> 
