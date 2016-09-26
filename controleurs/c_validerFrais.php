@@ -18,11 +18,8 @@ switch ($action) {
         }
         
     case 'choisirVisiteur': {
-            $lesVisiteurs = $pdo->getLesVisiteursAValider($numAnnee, $numMois);
-            $leMois = isset($_SESSION['lstMois']) ? $_SESSION['lstMois'] : null; // si c'est faux mettre a nul
-            $lesClesV = array_keys($lesVisiteurs);
-            //$visiteurASelectionner = $lesClesV[0];
-            //$lastSixMonth = getLesSixDerniersMois();
+            $choixMois = $_POST['choixMois'];
+            $lesVisiteurs = $pdo->getLesVisiteursAValider($choixMois);
             include("vues/v_listevisiteur.php");
             break;
         }

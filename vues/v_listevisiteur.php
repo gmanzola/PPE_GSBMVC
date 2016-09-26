@@ -1,9 +1,8 @@
 ﻿
  <div id="contenu">
     <h2>Valider fiche frais </h2>
-    <h3>Visiteurs et mois à sélectionner : </h3>
+    <h3>Visiteurs à sélectionner : </h3>
     <form action="index.php?uc=validerfichefrais&action=fiche" method="post">
-
         <div class="corpsForm">
 
             <p>
