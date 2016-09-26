@@ -2,9 +2,9 @@
 </h3>
 <div class="encadre">
     
-    <form method="POST" action="index.php?uc=validerfichefrais&action=modification">
-          <caption>Elements forfaitisés</caption>
+    <form method="POST" action="index.php?uc=validerfichefrais&action=modification"> 
         <table class="listeLegere">
+            <caption>Elements forfaitisés</caption>
             <tr>
                 <?php
                 foreach ($lesFraisForfait as $unFraisForfait) {
@@ -19,7 +19,7 @@
                 <?php
                 foreach ($lesFraisForfait as $unFraisForfait) {
                     $quantite = $unFraisForfait['quantite'];
-                    $idFrais = $unFraisForfait['idfrais'];
+                    $idfrais = $unFraisForfait['idfrais'];
                     ?>
                     <td class="qteForfait"><input type="text" size="10" maxlength="5" name="lesFrais[<?php echo $idfrais ?>]" value="<?php echo $quantite ?> "></td>
 
@@ -59,5 +59,4 @@
         }
         ?>
     </table>
-</div>
 </div>

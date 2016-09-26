@@ -3,7 +3,7 @@
     </h3>
     <div class="encadre">
     <p>
-        Etat : <?php echo $libEtat?> depuis le <?php echo $dateModif?> <br> Montant validé : <?php echo $montantValide?>
+        Etat : <?php echo $libetat?> depuis le <?php echo $datemodif?> <br> Montant validé : <?php echo $montantvalide?>
               
                      
     </p>
@@ -33,7 +33,7 @@
 		</tr>
     </table>
   	<table class="listeLegere">
-  	   <caption>Descriptif des éléments hors forfait -<?php echo $nbJustificatifs ?> justificatifs reçus -
+  	   <caption>Descriptif des éléments hors forfait -<?php echo $nbjustificatifs ?> justificatifs reçus -
        </caption>
              <tr>
                 <th class="date">Date</th>
@@ -56,7 +56,6 @@
           }
 		?>
     </table>
-  </div>
   </div>
  
 

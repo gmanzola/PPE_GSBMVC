@@ -21,7 +21,7 @@
                 <td> <?php echo $date ?></td>
                 <td><?php echo $libelle ?></td>
                 <td><?php echo $montant ?></td>
-                <td><a href="index.php?uc=gererFrais&action=supprimerFrais&idFrais=<?php echo $id ?>" 
+                <td><a href="index.php?uc=gererFrais&action=supprimerFrais&idfrais=<?php echo $id ?>" 
 				onclick="return confirm('Voulez-vous vraiment supprimer ce frais?');">Supprimer ce frais</a></td>
              </tr>
 	<?php		 
@@ -38,7 +38,7 @@
             </legend>
             <p>
               <label for="txtDateHF">Date (jj/mm/aaaa): </label>
-              <input type="text" id="txtDateHF" name="dateFrais" size="10" maxlength="10" value=""  />
+              <input type="text" id="txtDateHF" name="datefrais" size="10" maxlength="10" value=""  />
             </p>
             <p>
               <label for="txtLibelleHF">Libellé</label>
@@ -52,8 +52,8 @@
       </div>
       <div class="piedForm">
       <p>
-        <input id="ajouter" type="submit" value="Ajouter" size="20" />
-        <input id="effacer" type="reset" value="Effacer" size="20" />
+        <input id="ajouter" type="submit" value="Ajouter"/>
+        <input id="effacer" type="reset" value="Effacer"/>
       </p> 
       </div>
         

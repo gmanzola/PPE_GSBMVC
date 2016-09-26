@@ -23,7 +23,7 @@ switch($uc) {
         break;
     }
     case 'validerFrais': {
-        // Inclure le contr�leur "c_validerFrais.php"
+        // Inclure le controleur "c_validerFrais.php"
         include("controleurs/c_validerFrais.php");
         break;
     }

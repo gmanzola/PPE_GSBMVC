@@ -33,10 +33,17 @@ switch($action){
                 header("Location: index.php?uc=gererFrais&action=saisirFrais");
                 // include("vues/v_sommaire.php");
                 include("vues/v_sommaire.php");
-            }
+              }
+           }
+            break;
         }
-        break;
-    }
+        
+            case "deconnexion": {
+            deconnecter();
+            include("vues/v_connexion.php");
+            break;
+            }
+    
 	default :{
 		include("vues/v_connexion.php");
 		break;

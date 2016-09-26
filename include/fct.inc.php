@@ -11,7 +11,7 @@
  * @return vrai ou faux 
  */
 function estConnecte(){
-  return isset($_SESSION['idVisiteur']);
+  return isset($_SESSION['idvisiteur']);
 }
 /**
  * Enregistre dans une variable session les infos d'un visiteur
@@ -21,7 +21,7 @@ function estConnecte(){
  * @param $prenom
  */
 function connecter($id,$nom,$prenom,$group_id,$group_type){
-	$_SESSION['idVisiteur']= $id; 
+	$_SESSION['idvisiteur']= $id; 
 	$_SESSION['nom']= $nom;
 	$_SESSION['prenom']= $prenom;
 
@@ -33,6 +33,7 @@ function connecter($id,$nom,$prenom,$group_id,$group_type){
  * Détruit la session active
  */
 function deconnecter(){
+        $_SESSION = array();
 	session_destroy();
 }
 /**
@@ -150,20 +151,20 @@ function lesQteFraisValides($lesFrais){
  
  * des message d'erreurs sont ajoutés au tableau des erreurs
  
- * @param $dateFrais 
+ * @param $datefrais 
  * @param $libelle 
  * @param $montant
  */
-function valideInfosFrais($dateFrais,$libelle,$montant){
-	if($dateFrais==""){
+function valideInfosFrais($datefrais,$libelle,$montant){
+	if($datefrais==""){
 		ajouterErreur("Le champ date ne doit pas être vide");
 	}
 	else{
-		if(!estDatevalide($dateFrais)){
+		if(!estDatevalide($datefrais)){
 			ajouterErreur("Date invalide");
 		}	
 		else{
-			if(estDateDepassee($dateFrais)){
+			if(estDateDepassee($datefrais)){
 				ajouterErreur("date d'enregistrement du frais dépassé, plus de 1 an");
 			}			
 		}

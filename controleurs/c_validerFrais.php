@@ -1,17 +1,25 @@
 ﻿<?php
-
 // Recuperation variable pour interdire acces au non comptable
 $group_id = $_SESSION['group_id'];
-$idvisiteur = $_SESSION['idvisiteur'];
-if ($group_id == 2) {
-	
 
+if ($group_id == 2) {
 include("vues/v_sommaireComptable.php");
 $mois = getMois(date("d/m/Y"));
 $numAnnee = substr($mois, 0, 4);
 $numMois = substr($mois, 4, 2);
 $action = $_REQUEST['action'];
 switch ($action) {
+    /*
+    case 'choisirMois': {
+            $leMois = isset($_SESSION['lstMois']) ? $_SESSION['lstMois'] : null; // si c'est faux mettre a nul
+            $lesClesV = array_keys($lesVisiteurs);
+            $visiteurASelectionner = $lesClesV[0];
+            $lastSixMonth = getLesSixDerniersMois();
+            include("vues/v_listeMoisComtpable.php");
+            break;
+        }
+     */
+    
     case 'choisirVisiteur': {
             $lesVisiteurs = $pdo->getLesVisiteurs();
             $leMois = isset($_SESSION['lstMois']) ? $_SESSION['lstMois'] : null; // si c'est faux mettre a nul
@@ -36,7 +44,6 @@ switch ($action) {
             }
             $lesMois = $pdo->getLesMoisDisponibles($idvisiteur);
             include("vues/v_listevisiteur.php");
-            // FAIRE UNE AUTRE VUE OU IL A QUE LA LISTE DES FRAIS ET LES INFOS DU VISITEUR MEDICAL SPECIFIQUE
             $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idvisiteur, $leMois);
             $lesFraisForfait = $pdo->getLesFraisForfait($idvisiteur, $leMois);
             $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idvisiteur, $leMois);
@@ -54,14 +61,18 @@ switch ($action) {
             $leMois = isset($_SESSION['lstMois']) ? $_SESSION['lstMois'] : null;
             $lesFrais = $_REQUEST['lesFrais'];
             $pdo->majFraisForfait($idvisiteur, $leMois, $lesFrais);
+            header('Location: index.php?uc=validerFrais&action=choisirVisiteur');
+
+    }       
             break;
-        }
+        
     case 'supprimer': {
             $id = $_REQUEST['id'];
             $pdo->refuserfrais($id);
             header('Location: index.php?uc=validerFrais&action=fiche');
+    }
             break;
-        }
+        
     case 'reporter': {
             $id = $_REQUEST['id'];
             $MoisPlus = getMoisNext($numAnnee, substr($_SESSION['lstMois'], 4, 2)); // appel de la fonction qui ajoute 1 au mois
