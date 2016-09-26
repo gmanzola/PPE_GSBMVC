@@ -27,28 +27,7 @@
                     ?>
                 </select>
             </p>
-            <p>
-                <label for="lstMois" accesskey="n">selectionner votre mois: </label>
-                <select id="lstMois" name="lstMois">
-                    <?php
-                    $tableMois = $lastSixMonth['id'];
-                    $i = 0;
-                    foreach ($tableMois as $mois) {
-                        if ($mois == $Visiteur['id']) {
-                            
-                        } else {
-                            ?>
-                            <option value="<?php echo $mois; ?>"><?php echo $lastSixMonth['libelle'][$i]; ?></option> 
-                            <?php
-                        }
-                        $i++;
-                    }
-                    ?>
-
-                </select>
-    
-            </p>
-
+            
             
             
         </div>

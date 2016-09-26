@@ -244,8 +244,8 @@ class PdoGsb{
 			$numAnnee =substr( $mois,0,4);
 			$numMois =substr( $mois,4,2);
 			$lesMois["$mois"]=array(
-		     "mois"=>"$mois",
-		    "numAnnee"  => "$numAnnee",
+                        "mois"=>"$mois",
+                        "numAnnee"  => "$numAnnee",
 			"numMois"  => "$numMois"
              );
 			$laLigne = $res->fetch();
@@ -320,6 +320,26 @@ class PdoGsb{
 			$laLigne = $res->fetch();
 		}
 		return $lesVisiteurs;
+	}
+        
+        //renvoie les visiteurs qui ont une fiche de frais pour le mois en param
+        public function getLesVisiteursAValider($numAnnee, $numMois) {
+		$req = "SELECT * from fichefrais join visiteur v where idVisiteur = v.id";
+		$res = PdoGsb::$monPdo->query($req);
+		$lesVisiteursValidation = array();
+		$laLigne = $res->fetch();
+		while ($laLigne != null) {
+			$id = $laLigne['id'];
+			$nom = $laLigne['nom'];
+			$prenom = $laLigne['prenom'];
+			$lesVisiteursValidation["$id"] = array(
+					"id" => "$id",
+					"nom" => "$nom",
+					"prenom" => "$prenom"
+			);
+			$laLigne = $res->fetch();
+		}
+		return $lesVisiteursValidation;
 	}
 }
 ?>
