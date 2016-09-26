@@ -11,15 +11,15 @@
 			<li >
 
                 <?php
-                echo $_SESSION['group_type']
+                echo '<strong>('.$_SESSION['group_type'].')</strong>'
                 ?>
 
-                :</br><br>
+                </br><br>
                 <?php echo $_SESSION['prenom']."  ".$_SESSION['nom']  ?>
                 </br></br>
 			</li>
                     <li class="smenu">
-              <a href="index.php?uc=validerFrais&action=choisirVisiteur" title="Valider fiche de frais">Valider fiche frais</a>
+              <a href="index.php?uc=validerFrais&action=SelectionnerMois" title="Valider fiche de frais">Valider fiche frais</a>
            </li>
            <br>
            <li class="smenu">

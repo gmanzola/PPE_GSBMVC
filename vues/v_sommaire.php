@@ -11,10 +11,10 @@
 			<li >
 
                 <?php
-                echo $_SESSION['group_type']
+                echo '<strong>('.$_SESSION['group_type'].')</strong>'
                 ?>
 
-                :</br><br>
+                </br><br>
                 <?php echo $_SESSION['prenom']."  ".$_SESSION['nom']  ?>
                 </br></br>
 			</li>

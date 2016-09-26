@@ -9,17 +9,14 @@ $numAnnee = substr($mois, 0, 4);
 $numMois = substr($mois, 4, 2);
 $action = $_REQUEST['action'];
 switch ($action) {
-    /*
-    case 'choisirMois': {
-            $leMois = isset($_SESSION['lstMois']) ? $_SESSION['lstMois'] : null; // si c'est faux mettre a nul
-            $lesClesV = array_keys($lesVisiteurs);
-            $visiteurASelectionner = $lesClesV[0];
-            $lastSixMonth = getLesSixDerniersMois();
-            include("vues/v_listeMoisComtpable.php");
+    
+    case 'SelectionnerMois': {
+            $lesMois=$pdo->getLesMoisAvalider();
+            // $leMois = isset($_SESSION['lstMois']) ? $_SESSION['lstMois'] : null; // si c'est faux mettre a nul
+            include("vues/v_listeMoisComptable.php");
             break;
         }
-     */
-    
+        
     case 'choisirVisiteur': {
             $lesVisiteurs = $pdo->getLesVisiteurs();
             $leMois = isset($_SESSION['lstMois']) ? $_SESSION['lstMois'] : null; // si c'est faux mettre a nul

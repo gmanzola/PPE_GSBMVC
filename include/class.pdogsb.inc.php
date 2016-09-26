@@ -252,6 +252,31 @@ class PdoGsb{
 		}
 		return $lesMois;
 	}
+        
+        /**
+ * Retourne les mois pour lesquel des fiches de frais doivent 
+ * @param Aucun
+ * @return un tableau associatif de clé un mois -aaaamm- et de valeurs l'année et le mois correspondant
+*/
+	public function getLesMoisAvalider(){
+		$req = "SELECT mois from fichefrais where idetat ='cr' group by mois ORDER BY `fichefrais`.`mois`  DESC";
+		$res = PdoGsb::$monPdo->query($req);
+		$lesMois =array();
+		$laLigne = $res->fetch();
+		while($laLigne != null)	{
+			$mois = $laLigne['mois'];
+			$numAnnee =substr( $mois,0,4);
+			$numMois =substr( $mois,4,2);
+			$lesMois["$mois"]=array(
+		     "mois"=>"$mois",
+		    "numAnnee"  => "$numAnnee",
+			"numMois"  => "$numMois"
+             );
+			$laLigne = $res->fetch();
+		}
+		return $lesMois;
+	}
+        
 /**
  * Retourne les informations d'une fiche de frais d'un visiteur pour un mois donné
  * @param $idvisiteur
