@@ -1,13 +1,12 @@
-﻿
- <div id="contenu">
+﻿ <div id="contenu">
     <h2>Valider fiche frais </h2>
-    <h3>Visiteurs à sélectionner : </h3>
+    <h3>Visiteur à sélectionner : </h3>
     <form action="index.php?uc=validerfichefrais&action=fiche" method="post">
         <div class="corpsForm">
 
             <p>
-                <label for="lstVisiteurs" accesskey="n">sélectionner votre visiteur: </label>
-                <select id="lstVisiteurs" name="lstVisiteurs">
+                <label for="lstVisiteurs" accesskey="n">Rechercher le visiteur médical : </label>
+                <select id="lstVisiteurs" name="choixVisiteur">
                     <?php
                     foreach ($lesVisiteurs as $Visiteur) {
                         $id = $Visiteur['id'];
@@ -32,8 +31,8 @@
         </div>
         <div class="piedForm">
             <p>
+                <input id="annuler" type="reset" value="Réinitialiser"/>
                 <input id="ok" type="submit" value="Valider"/>
-                <input id="annuler" type="reset" value="Effacer"/>
             </p> 
 
         </div>

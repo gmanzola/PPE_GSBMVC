@@ -1,4 +1,7 @@
 ﻿<?php
+$group_id = $_SESSION['group_id'];
+
+if ($group_id == 1) {
 include("vues/v_sommaire.php");
 $action = $_REQUEST['action'];
 $idvisiteur = $_SESSION['idvisiteur'];
@@ -31,5 +34,9 @@ switch($action){
 		include("vues/v_etatFrais.php");
 		break;
 	}
+    }
+}
+else{
+	include("vues/accesRefuseComptable.php");
 }
 ?>

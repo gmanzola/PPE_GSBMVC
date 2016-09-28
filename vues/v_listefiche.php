@@ -1,10 +1,22 @@
-﻿<h3>Fiche de frais du mois <?php echo $numMois . "-" . $numAnnee ?> : 
-</h3>
+
+﻿ <div id="contenu">
+    <h2>Valider fiche frais </h2>
+    
+    <div>
+      <ul id='menu'>
+        <li><a href="index.php?uc=validerFrais&action=SelectionnerMois" title="mois">Changer de mois</a></li>
+        <li><a href="index.php?uc=validerFrais&action=choisirVisiteur" title="Changer visiteur">Changer de visiteur</a></li>
+      </ul>
+    </div>
+
 <div class="encadre">
+    
+    <h3>Fiche de frais du Visiteur "<?php echo $nom. " " .$prenom ?>" du mois <?php echo $numMois . "-" . $numAnnee ?> : </h3>
     
     <form method="POST" action="index.php?uc=validerfichefrais&action=modification"> 
         <table class="listeLegere">
-            <caption>Elements forfaitisés</caption>
+           <caption><i>Elements forfaitisés</i></caption>
+            
             <tr>
                 <?php
                 foreach ($lesFraisForfait as $unFraisForfait) {
@@ -29,10 +41,10 @@
                 ?><td><input type="submit" value="Modifier" ></td>
             </tr>
         </table>
-    </form>
+        <br>
     <table class="listeLegere">
-        <caption>Descriptif des élements hors forfait -<?php echo $nbjustificatifs ?> justificatifs reçus -
-        </caption>
+        <caption><i>Descriptif des élements hors forfait -<?php echo $nbjustificatifs ?> justificatifs reçus -
+            </i></caption>
         <tr>
             <th class="date">Date</th>
             <th class="libelle">Libellé</th>
@@ -59,4 +71,7 @@
         }
         ?>
     </table>
+        </form>
 </div>
+          
+    </div>

@@ -52,11 +52,11 @@ class PdoGsb{
      * @return l'id, le nom et le prénom sous la forme d'un tableau associatif
      */
     public function getInfosVisiteur($login, $mdp){
-        /*$req = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom from visiteur
-        where visiteur.login='$login' and visiteur.mdp='$mdp'";*/
+        //$salt = "VM9DIwqzDv";
+        //$mdpsecurise="$salt.$mdp";
         $req = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom, typecompte.type, visiteur.typeCompte from visiteur
                 INNER JOIN typecompte ON typecompte.id = visiteur.typeCompte
-		        where visiteur.login='$login' and visiteur.mdp='$mdp'";
+		        where visiteur.login='$login' and visiteur.mdp=SHA1('$mdp')";
         $rs = PdoGsb::$monPdo->query($req);
         $ligne = $rs->fetch();
         return $ligne;
@@ -304,7 +304,7 @@ class PdoGsb{
 	}
 	
 	public function getLesVisiteurs() {
-		$req = "select id, nom, prenom from visiteur where typecompte=1 order by nom asc";
+		$req = "select id, nom as nom, prenom as prenom from visiteur where typecompte=1 order by nom asc";
 		$res = PdoGsb::$monPdo->query($req);
 		$lesVisiteurs = array();
 		$laLigne = $res->fetch();
@@ -324,16 +324,17 @@ class PdoGsb{
         
         //renvoie les visiteurs qui ont une fiche de frais pour le mois en param
         public function getLesVisiteursAValider($choixMois) {
-		$req = "SELECT nom, prenom from fichefrais join visiteur v where idVisiteur = v.id and mois ='$choixMois'";
-                echo $req;
+		$req = "SELECT id,nom as nom, prenom as prenom from fichefrais join visiteur v where idVisiteur = v.id and mois ='$choixMois' and typecompte =1";
+                // echo $req;
 		$res = PdoGsb::$monPdo->query($req);
 		$lesVisiteursValidation = array();
 		$laLigne = $res->fetch();
 		while ($laLigne != null) {
-			// $id = $laLigne['id'];
+			$id = $laLigne['id'];
 			$nom = $laLigne['nom'];
 			$prenom = $laLigne['prenom'];
-			$lesVisiteursValidation["$nom"] = array(
+			$lesVisiteursValidation["$id"] = array(
+                                        "id" => "$id",
 					"nom" => "$nom",
 					"prenom" => "$prenom"
 			);
@@ -341,5 +342,12 @@ class PdoGsb{
 		}
 		return $lesVisiteursValidation;
 	}
+        
+         public function getLeVisiteur($idVisiteur){
+        $req = "select * from visiteur where id ='$idVisiteur'";
+        $resultat = PdoGsb::$monPdo->query($req);
+        $fetch = $resultat->fetch();
+        return $fetch;
+        }
 }
 ?>

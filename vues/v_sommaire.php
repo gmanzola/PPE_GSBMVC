@@ -11,7 +11,7 @@
 			<li >
 
                 <?php
-                echo '<strong>('.$_SESSION['group_type'].')</strong>'
+                echo '<p>Vous etes connecté en tant que :</p><strong>('.$_SESSION['group_type'].')</strong>'
                 ?>
 
                 </br><br>

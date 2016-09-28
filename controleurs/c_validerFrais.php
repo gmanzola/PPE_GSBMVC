@@ -12,37 +12,37 @@ switch ($action) {
     
     case 'SelectionnerMois': {
             $lesMois=$pdo->getLesMoisAvalider();
-            // $leMois = isset($_SESSION['lstMois']) ? $_SESSION['lstMois'] : null; // si c'est faux mettre a nul
             include("vues/v_listeMoisComptable.php");
             break;
         }
         
     case 'choisirVisiteur': {
             $choixMois = $_POST['choixMois'];
+            $_SESSION['choixMois'] = $choixMois;
             $lesVisiteurs = $pdo->getLesVisiteursAValider($choixMois);
             include("vues/v_listevisiteur.php");
             break;
         }
     case 'fiche': {
-            $lesVisiteurs = $pdo->getLesVisiteurs();
-            $lesClesV = array_keys($lesVisiteurs);
-            $visiteurASelectionner = $lesClesV[0];
-            $lastSixMonth = getLesSixDerniersMois();
-            $idvisiteur = isset($_REQUEST['lstVisiteurs']) ? $_REQUEST['lstVisiteurs'] : null;
-            $leMois = isset($_REQUEST['lstMois']) ? $_REQUEST['lstMois'] : null;
-            if ($idvisiteur && $leMois) {
-                $_SESSION['idvisiteur'] = $idvisiteur;
-                $_SESSION['lstMois'] = $leMois;
-                $idvisiteur = $_SESSION['idvisiteur'];
-                $leMois = $_SESSION['lstMois'];
+            
+            $choixMois = $_SESSION['choixMois'];
+            $idVisiteur = $_POST['choixVisiteur'];
+        
+            if (isset($idVisiteur) && isset($choixMois)) {
+                $_POST['choixVisiteur'] = $idVisiteur;
+                $_SESSION['choixMois'] = $choixMois;
             }
-            $lesMois = $pdo->getLesMoisDisponibles($idvisiteur);
-            include("vues/v_listevisiteur.php");
-            $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idvisiteur, $leMois);
-            $lesFraisForfait = $pdo->getLesFraisForfait($idvisiteur, $leMois);
-            $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idvisiteur, $leMois);
-            $numAnnee = substr($leMois, 0, 4);
-            $numMois = substr($leMois, 4, 2);
+            $lesVisiteurs = $pdo->getLesVisiteursAValider($choixMois);
+            // include("vues/v_listevisiteur.php");
+            $visiteur = $pdo->getLeVisiteur($idVisiteur);
+            $nom = $visiteur['nom'];
+            $prenom = $visiteur['prenom'];
+            
+            $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $choixMois);
+            $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $choixMois);
+            $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $choixMois);
+            $numAnnee = substr($choixMois, 0, 4);
+            $numMois = substr($choixMois, 4, 2);
             $libetat = $lesInfosFicheFrais['libetat'];
             $montantvalide = $lesInfosFicheFrais['montantvalide'];
             $nbjustificatifs = $lesInfosFicheFrais['nbjustificatifs'];

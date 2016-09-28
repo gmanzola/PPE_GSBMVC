@@ -1,4 +1,7 @@
 <?php
+$group_id = $_SESSION['group_id'];
+
+if ($group_id == 1) {
 include("vues/v_sommaire.php");
 $idvisiteur = $_SESSION['idvisiteur'];
 $mois = getMois(date("d/m/Y"));
@@ -47,4 +50,9 @@ $lesFraisForfait= $pdo->getLesFraisForfait($idvisiteur,$mois);
 include("vues/v_listeFraisForfait.php");
 include("vues/v_listeFraisHorsForfait.php");
 
+}
+
+else{
+	include("vues/accesRefuseComptable.php");
+}
 ?>
