@@ -324,8 +324,7 @@ class PdoGsb{
         
         //renvoie les visiteurs qui ont une fiche de frais pour le mois en param
         public function getLesVisiteursAValider($choixMois) {
-		$req = "SELECT id,nom as nom, prenom as prenom from fichefrais join visiteur v where idVisiteur = v.id and mois ='$choixMois' and typecompte =1";
-                // echo $req;
+		$req = "SELECT id,nom as nom, prenom as prenom from fichefrais join visiteur v where idVisiteur = v.id and mois ='$choixMois' and typecompte = 1 ";
 		$res = PdoGsb::$monPdo->query($req);
 		$lesVisiteursValidation = array();
 		$laLigne = $res->fetch();

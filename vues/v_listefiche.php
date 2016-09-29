@@ -1,14 +1,4 @@
 
-﻿ <div id="contenu">
-    <h2>Valider fiche frais </h2>
-    
-    <div>
-      <ul id='menu'>
-        <li><a href="index.php?uc=validerFrais&action=SelectionnerMois" title="mois">Changer de mois</a></li>
-        <li><a href="index.php?uc=validerFrais&action=choisirVisiteur" title="Changer visiteur">Changer de visiteur</a></li>
-      </ul>
-    </div>
-
 <div class="encadre">
     
     <h3>Fiche de frais du Visiteur "<?php echo $nom. " " .$prenom ?>" du mois <?php echo $numMois . "-" . $numAnnee ?> : </h3>

@@ -1,6 +1,13 @@
 ﻿ <div id="contenu">
     <h2>Valider fiche frais </h2>
     <h3>Visiteur à sélectionner : </h3>
+    
+    <div>
+      <ul id='menu'>
+        <li><a href="index.php?uc=validerFrais&action=SelectionnerMois" title="mois">Changer de mois</a></li>
+      </ul>
+    </div>
+    
     <form action="index.php?uc=validerfichefrais&action=fiche" method="post">
         <div class="corpsForm">
 

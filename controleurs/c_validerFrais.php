@@ -24,6 +24,8 @@ switch ($action) {
             break;
         }
     case 'fiche': {
+            //$lesMois=$pdo->getLesMoisAvalider();
+            //include("vues/v_listeMoisComptable.php");
             
             $choixMois = $_SESSION['choixMois'];
             $idVisiteur = $_POST['choixVisiteur'];
@@ -33,7 +35,7 @@ switch ($action) {
                 $_SESSION['choixMois'] = $choixMois;
             }
             $lesVisiteurs = $pdo->getLesVisiteursAValider($choixMois);
-            // include("vues/v_listevisiteur.php");
+            include("vues/v_listevisiteur.php");
             $visiteur = $pdo->getLeVisiteur($idVisiteur);
             $nom = $visiteur['nom'];
             $prenom = $visiteur['prenom'];
