@@ -42,6 +42,7 @@
             <th class='montant'>Etat</th>
             <th class='supprimer'>Refuser</th> 
             <th class='reporter'>Reporter</th> 
+            <th class='reporter'>Valider</th>
         </tr>
         <?php
         
@@ -61,12 +62,14 @@
                 <td><?php echo $etat ?></td>
                 <td><a href="index.php?uc=validerFrais&action=refus&id=<?php echo $id;?>">Refuser</a></td>
                 <td><a href="index.php?uc=validerfichefrais&action=reporter&id=<?php echo $id;?>">Reporter</a></td>
+                <td><a href="index.php?uc=validerFrais&action=validerFraisHF&id=<?php echo $id;?>">Valider</a></td>
             </tr>
             <?php
         }
         ?>
     </table>
         </form>
+                <a href="index.php?uc=validerFrais&action=validerFicheFrais&id=<?php echo $id;?>">Valider la fiche</a>
 </div>
           
     </div>

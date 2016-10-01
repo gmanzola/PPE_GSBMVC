@@ -183,25 +183,25 @@ class PdoGsb{
 	}
 /**
  * Crée une nouvelle fiche de frais et les lignes de frais au forfait pour un visiteur et un mois donnés
- * récupère le dernier mois en cours de traitement, met à 'CL' son champs idEtat, crée une nouvelle fiche de frais
+ * récupère le dernier mois en cours de traitement, crée une nouvelle fiche de frais
  * avec un idEtat à 'CR' et crée les lignes de frais forfait de quantités nulles
  * @param $idvisiteur
  * @param $mois sous la forme aaaamm
 */
-	public function creeNouvellesLignesFrais($idvisiteur,$mois){
+	public function creeNouvellesLignesFrais($idvisiteur,$moisSuivant){
 		$dernierMois = $this->dernierMoisSaisi($idvisiteur);
 		$laDerniereFiche = $this->getLesInfosFicheFrais($idvisiteur,$dernierMois);
 		if($laDerniereFiche['idetat']=='cr'){
 				$this->majEtatFicheFrais($idvisiteur, $dernierMois,'cr');
 		}
 		$req = "insert into fichefrais(idvisiteur,mois,nbjustificatifs,montantvalide,datemodif,idetat)
-		values('$idvisiteur','$mois',0,0,now(),'cr')";
+		values('$idvisiteur','$moisSuivant',0,0,now(),'cr')";
 		PdoGsb::$monPdo->exec($req);
 		$lesIdFrais = $this->getLesIdFrais();
 		foreach($lesIdFrais as $uneLigneIdFrais){
 			$unIdFrais = $uneLigneIdFrais['idfrais'];
 			$req = "insert into lignefraisforfait(idvisiteur,mois,idfraisforfait,quantite)
-			values('$idvisiteur','$mois','$unIdFrais',0)";
+			values('$idvisiteur','$moisSuivant','$unIdFrais',0)";
 			PdoGsb::$monPdo->exec($req);
 		 }
 	}
@@ -362,7 +362,31 @@ class PdoGsb{
         public function ReportFraisHorsForfait($moisSuivant, $idVisiteur, $id){
         $req = "UPDATE lignefraishorsforfait SET mois ='$moisSuivant', etat = 'rp' WHERE idvisiteur='$idVisiteur' and id ='$id'";
         PdoGsb::$monPdo->exec($req);
-        }  
+        }
+        
+        public function validerFraisHorsForfait($id) {
+        $req = "update lignefraishorsforfait set etat ='va' where id = '$id'";
+        //echo $req;
+        PdoGsb::$monPdo->exec($req);
+        }
+        
+        public function validerFicheFrais($id,$mois) {
+        $req = "update fichefrais set etat ='va', datemodif='$mois' where id = '$id'";
+        //echo $req;
+        PdoGsb::$monPdo->exec($req);
+        }     
+        
+        public function verifEtatFraisHF($idVisiteur,$mois) {
+            
+        $ok = false;
+		$req = "select count(*) as nblignesfraisHF from lignefraishorsforfait where idvisiteur ='$idVisiteur' and etat = 'at' and mois='$mois' ";
+		$res = PdoGsb::$monPdo->query($req);
+		$laLigne = $res->fetch();
+		if($laLigne['nblignesfraisHF'] == 0){
+			$ok = true;
+		}
+		return $ok;
+        }
 }
 
 ?>

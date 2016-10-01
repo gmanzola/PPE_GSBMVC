@@ -24,19 +24,23 @@ switch ($action) {
             break;
         }
     case 'fiche': {
-        
-            $idVisiteur = $_SESSION['choixVisiteur'];
-            $_SESSION['idVisiteur'] = $idVisiteur;
             
+            $idVisiteur = $_POST['choixVisiteur'];
             $choixMois = $_SESSION['choixMois'];
-            $_SESSION['choixMois'] = $choixMois;
+            
+            if (isset($idVisiteur) && isset($choixMois)) {
+                $_SESSION['choixVisiteur'] = $idVisiteur;
+                $_SESSION['choixMois'] = $choixMois;
+                $choixMois = $_SESSION['choixMois'];
+                $idVisiteur = $_SESSION['choixVisiteur'];
+                
+            }
             
             $lesVisiteurs = $pdo->getLesVisiteursAValider($choixMois);
             include("vues/v_listevisiteur.php");
             $visiteur = $pdo->getLeVisiteur($idVisiteur);
             $nom = $visiteur['nom'];
             $prenom = $visiteur['prenom'];
-            
             
             $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $choixMois);
             $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $choixMois);
@@ -76,14 +80,43 @@ switch ($action) {
             $idVisiteur = $_SESSION['choixVisiteur'];
             $moisSuivant = getMoisNext($numAnnee, substr($_SESSION['choixMois'], 4, 2)); // appel de la fonction qui ajoute 1 au mois
             
+            if ($pdo->estPremierFraisMois($idVisiteur, $moisSuivant)== true) {
             $pdo->creeNouvellesLignesFrais($idVisiteur, $moisSuivant);
             $pdo->ReportFraisHorsForfait($moisSuivant, $idVisiteur, $id);
+            }
+            else {
+            $pdo->ReportFraisHorsForfait($moisSuivant, $idVisiteur, $id);
+            }
             include('vues/v_report.php');
             //header('Location: index.php?uc=validerfichefrais&action=fiche');
+            
             break;
         }
-}
-//            
+    case 'validerFraisHF': {
+        $id = $_REQUEST['id'];
+        $pdo->validerFraisHorsForfait($id);
+        include('vues/v_modif.php');
+        
+        break;
+    }
+    
+    case 'validerFicheFrais': {
+        $idVisiteur = $_SESSION['choixVisiteur']; 
+        $id = $_REQUEST['id'];
+        if($pdo->verifEtatFraisHF($idVisiteur,$mois) == true){
+           $pdo->validerFicheFrais($id,$mois);
+           include('vues/v_valider.php');
+        }
+        else{
+        echo "<script>alert('Des frais hors forfait sont encore EN ATTENTE')</script>";
+        }
+        
+        
+        break;
+    }
+    
+    
+  }            
 }
 else{
 	include("vues/accesInterdit.php");
