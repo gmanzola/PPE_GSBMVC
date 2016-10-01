@@ -38,23 +38,28 @@
         <tr>
             <th class="date">Date</th>
             <th class="libelle">Libellé</th>
-            <th class='montant'>Montant</th> 
-            <th class='supprimer'>Supprimer</th> 
+            <th class='montant'>Montant</th>
+            <th class='montant'>Etat</th>
+            <th class='supprimer'>Refuser</th> 
             <th class='reporter'>Reporter</th> 
         </tr>
         <?php
+        
+       
         foreach ($lesFraisHorsForfait as $unFraisHorsForfait) {
             $id = $unFraisHorsForfait['id'];
             $date = $unFraisHorsForfait['date'];
             $libelle = $unFraisHorsForfait['libelle'];
             $montant = $unFraisHorsForfait['montant'];
+            $etat = $unFraisHorsForfait['etat'];
             ?>
 
             <tr>
                 <td><?php echo $date ?></td>
                 <td><?php echo $libelle ?></td>
                 <td><?php echo $montant ?></td>
-                <td><a href="index.php?uc=validerfichefrais&action=supprimer&id=<?php echo $id;?>">Refuser</a></td>
+                <td><?php echo $etat ?></td>
+                <td><a href="index.php?uc=validerFrais&action=refus&id=<?php echo $id;?>">Refuser</a></td>
                 <td><a href="index.php?uc=validerfichefrais&action=reporter&id=<?php echo $id;?>">Reporter</a></td>
             </tr>
             <?php

@@ -174,8 +174,8 @@ class PdoGsb{
  * @param $idVisiteur
  * @return le mois sous la forme aaaamm
 */
-	public function dernierMoisSaisi($idVisiteur){
-		$req = "select max(mois) as dernierMois from fichefrais where fichefrais.idvisiteur = '$idVisiteur'";
+	public function dernierMoisSaisi($idvisiteur){
+		$req = "select max(mois) as dernierMois from fichefrais where fichefrais.idvisiteur = '$idvisiteur'";
 		$res = PdoGsb::$monPdo->query($req);
 		$laLigne = $res->fetch();
 		$dernierMois = $laLigne['dernierMois'];
@@ -191,16 +191,16 @@ class PdoGsb{
 	public function creeNouvellesLignesFrais($idvisiteur,$mois){
 		$dernierMois = $this->dernierMoisSaisi($idvisiteur);
 		$laDerniereFiche = $this->getLesInfosFicheFrais($idvisiteur,$dernierMois);
-		if($laDerniereFiche['idEtat']=='CR'){
-				$this->majEtatFicheFrais($idvisiteur, $dernierMois,'CL');
+		if($laDerniereFiche['idetat']=='cr'){
+				$this->majEtatFicheFrais($idvisiteur, $dernierMois,'cr');
 		}
 		$req = "insert into fichefrais(idvisiteur,mois,nbjustificatifs,montantvalide,datemodif,idetat)
-		values('$idvisiteur','$mois',0,0,now(),'CR')";
+		values('$idvisiteur','$mois',0,0,now(),'cr')";
 		PdoGsb::$monPdo->exec($req);
 		$lesIdFrais = $this->getLesIdFrais();
 		foreach($lesIdFrais as $uneLigneIdFrais){
 			$unIdFrais = $uneLigneIdFrais['idfrais'];
-			$req = "insert into lignefraisforfait(idvisiteur,mois,idFraisForfait,quantite)
+			$req = "insert into lignefraisforfait(idvisiteur,mois,idfraisforfait,quantite)
 			values('$idvisiteur','$mois','$unIdFrais',0)";
 			PdoGsb::$monPdo->exec($req);
 		 }
@@ -348,5 +348,21 @@ class PdoGsb{
         $fetch = $resultat->fetch();
         return $fetch;
         }
+        
+     /**
+     * @param $id du frais hors forfait
+     */
+        
+        public function refuserFraisHorsForfait($id) {
+        $req = "update lignefraishorsforfait set etat ='rf' where id = '$id'";
+        //echo $req;
+        PdoGsb::$monPdo->exec($req);
+        }
+    
+        public function ReportFraisHorsForfait($moisSuivant, $idVisiteur, $id){
+        $req = "UPDATE lignefraishorsforfait SET mois ='$moisSuivant', etat = 'rp' WHERE idvisiteur='$idVisiteur' and id ='$id'";
+        PdoGsb::$monPdo->exec($req);
+        }  
 }
+
 ?>

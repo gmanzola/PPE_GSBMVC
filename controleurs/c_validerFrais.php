@@ -24,21 +24,19 @@ switch ($action) {
             break;
         }
     case 'fiche': {
-            //$lesMois=$pdo->getLesMoisAvalider();
-            //include("vues/v_listeMoisComptable.php");
+        
+            $idVisiteur = $_SESSION['choixVisiteur'];
+            $_SESSION['idVisiteur'] = $idVisiteur;
             
             $choixMois = $_SESSION['choixMois'];
-            $idVisiteur = $_POST['choixVisiteur'];
-        
-            if (isset($idVisiteur) && isset($choixMois)) {
-                $_POST['choixVisiteur'] = $idVisiteur;
-                $_SESSION['choixMois'] = $choixMois;
-            }
+            $_SESSION['choixMois'] = $choixMois;
+            
             $lesVisiteurs = $pdo->getLesVisiteursAValider($choixMois);
             include("vues/v_listevisiteur.php");
             $visiteur = $pdo->getLeVisiteur($idVisiteur);
             $nom = $visiteur['nom'];
             $prenom = $visiteur['prenom'];
+            
             
             $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $choixMois);
             $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $choixMois);
@@ -54,34 +52,34 @@ switch ($action) {
             break;
         }
     case 'modification': {
-            $leMois = isset($_SESSION['lstMois']) ? $_SESSION['lstMois'] : null;
+        
+            $choixMois = $_SESSION['choixMois'];
+            $idVisiteur = $_SESSION['choixVisiteur']; 
             $lesFrais = $_REQUEST['lesFrais'];
-            $pdo->majFraisForfait($idvisiteur, $leMois, $lesFrais);
-            header('Location: index.php?uc=validerFrais&action=choisirVisiteur');
+            $pdo->majFraisForfait($idVisiteur, $choixMois, $lesFrais);
+            include('vues/v_modif.php');
+            //header('Location: index.php?uc=validerfichefrais&action=fiche');
 
     }       
             break;
         
-    case 'supprimer': {
+    case 'refus': {
             $id = $_REQUEST['id'];
-            $pdo->refuserfrais($id);
-            header('Location: index.php?uc=validerFrais&action=fiche');
+            $pdo->refuserFraisHorsForfait($id);
+            include('vues/v_refus.php');
+            //header('Location: index.php?uc=validerfichefrais&action=fiche');
     }
             break;
         
     case 'reporter': {
             $id = $_REQUEST['id'];
-            $MoisPlus = getMoisNext($numAnnee, substr($_SESSION['lstMois'], 4, 2)); // appel de la fonction qui ajoute 1 au mois
-            // $ficheExiste = $pdo->estPremierFraisMois($idvisiteur,$MoisPlus); // un visiteur poss�de une fiche de frais pour le mois pass� en argument
-            var_dump($MoisPlus);
-            var_dump($idvisiteur);
-            /* if ($pdo->estPremierFraisMois($idvisiteur, $MoisPlus)) {
-              $pdo->getMoisSuivant($numAnnee, $MoisPlus, $id);
-              } else { */
-            $pdo->creeNouvellesLignesFrais($idvisiteur, $MoisPlus);
-            $req = "UPDATE `lignefraisforfait` SET `mois`='" . $MoisPlus . "' WHERE `idvisiteur`='" . $idvisiteur . "' and `idFraisForfait`='" . $id . "'";
-            //} 
-            //header('Location: index.php?uc=validerFrais&action=fiche');
+            $idVisiteur = $_SESSION['choixVisiteur'];
+            $moisSuivant = getMoisNext($numAnnee, substr($_SESSION['choixMois'], 4, 2)); // appel de la fonction qui ajoute 1 au mois
+            
+            $pdo->creeNouvellesLignesFrais($idVisiteur, $moisSuivant);
+            $pdo->ReportFraisHorsForfait($moisSuivant, $idVisiteur, $id);
+            include('vues/v_report.php');
+            //header('Location: index.php?uc=validerfichefrais&action=fiche');
             break;
         }
 }

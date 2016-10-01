@@ -4,15 +4,17 @@
        </caption>
              <tr>
                 <th class="date">Date</th>
-				<th class="libelle">Libellé</th>  
-                <th class="montant">Montant</th>  
-                <th class="action">&nbsp;</th>              
+		<th class="libelle">Libellé</th>  
+                <th class="montant">Montant</th>
+                <th class="etat">Etat</th> 
+                <th class="action">Action</th>              
              </tr>
           
     <?php    
 	    foreach( $lesFraisHorsForfait as $unFraisHorsForfait) 
 		{
 			$libelle = $unFraisHorsForfait['libelle'];
+                        $etat = $unFraisHorsForfait['etat'];
 			$date = $unFraisHorsForfait['date'];
 			$montant=$unFraisHorsForfait['montant'];
 			$id = $unFraisHorsForfait['id'];
@@ -21,6 +23,7 @@
                 <td> <?php echo $date ?></td>
                 <td><?php echo $libelle ?></td>
                 <td><?php echo $montant ?></td>
+                <td><?php echo $etat ?></td>
                 <td><a href="index.php?uc=gererFrais&action=supprimerFrais&idfrais=<?php echo $id ?>" 
 				onclick="return confirm('Voulez-vous vraiment supprimer ce frais?');">Supprimer ce frais</a></td>
              </tr>
