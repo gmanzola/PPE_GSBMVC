@@ -25,7 +25,8 @@ switch ($action) {
         }
     case 'fiche': {
             
-            $idVisiteur = $_POST['choixVisiteur'];
+            $idVisiteur = $_REQUEST['choixVisiteur'];
+            $_SESSION['idVisiteur']=$idVisiteur;
             $choixMois = $_SESSION['choixMois'];
             
             if (isset($idVisiteur) && isset($choixMois)) {
@@ -68,6 +69,8 @@ switch ($action) {
             break;
         
     case 'refus': {
+            $idVisiteur = $_SESSION['idVisiteur'];
+            $_POST['choixVisiteur'] = $idVisiteur;
             $id = $_REQUEST['id'];
             $pdo->refuserFraisHorsForfait($id);
             include('vues/v_refus.php');

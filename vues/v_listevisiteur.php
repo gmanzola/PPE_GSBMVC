@@ -8,7 +8,7 @@
       </ul>
     </div>
     
-    <form action="index.php?uc=validerfichefrais&action=fiche" method="post">
+    <form action="index.php?uc=validerFrais&action=fiche" method="post">
         <div class="corpsForm">
 
             <p>

@@ -46,8 +46,9 @@
         </tr>
         <?php
         
-       
-        foreach ($lesFraisHorsForfait as $unFraisHorsForfait) {
+        
+        
+        foreach ($lesFraisHorsForfait as $unFraisHorsForfait){
             $id = $unFraisHorsForfait['id'];
             $date = $unFraisHorsForfait['date'];
             $libelle = $unFraisHorsForfait['libelle'];
