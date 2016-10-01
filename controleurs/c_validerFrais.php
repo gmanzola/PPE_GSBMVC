@@ -80,7 +80,7 @@ switch ($action) {
         
     case 'reporter': {
             $id = $_REQUEST['id'];
-            $idVisiteur = $_SESSION['choixVisiteur'];
+            $idVisiteur = $_SESSION['idVisiteur'];
             $moisSuivant = getMoisNext($numAnnee, substr($_SESSION['choixMois'], 4, 2)); // appel de la fonction qui ajoute 1 au mois
             
             if ($pdo->estPremierFraisMois($idVisiteur, $moisSuivant)== true) {
@@ -97,6 +97,7 @@ switch ($action) {
         }
     case 'validerFraisHF': {
         $id = $_REQUEST['id'];
+        $idVisiteur = $_SESSION['idVisiteur'];
         $pdo->validerFraisHorsForfait($id);
         include('vues/v_modif.php');
         
@@ -104,7 +105,7 @@ switch ($action) {
     }
     
     case 'validerFicheFrais': {
-        $idVisiteur = $_SESSION['choixVisiteur']; 
+        $idVisiteur = $_SESSION['idVisiteur'];
         $id = $_REQUEST['id'];
         if($pdo->verifEtatFraisHF($idVisiteur,$mois) == true){
            $pdo->validerFicheFrais($id,$mois);
