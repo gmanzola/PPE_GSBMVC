@@ -1,4 +1,4 @@
-<div>
+﻿ <div id="contenu">
 <center><h2>La mise a jour a bien été pris en compte</h2></center>
 
 <?php

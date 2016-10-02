@@ -259,7 +259,9 @@ class PdoGsb{
  * @return un tableau associatif de clé un mois -aaaamm- et de valeurs l'année et le mois correspondant
 */
 	public function getLesMoisAvalider(){
-		$req = "SELECT mois from fichefrais where idetat ='cr' group by mois ORDER BY `fichefrais`.`mois`  DESC";
+                $req = "SELECT mois from fichefrais where idetat ='cr' group by mois ORDER BY fichefrais.mois  DESC";
+                // Requete suivante pour afficher les mois ou les fiches sont CR ou CL pour comptable
+		//$req = "SELECT mois from fichefrais where idetat ='cr' or idetat='cl' group by mois ORDER BY fichefrais.mois  DESC";
 		$res = PdoGsb::$monPdo->query($req);
 		$lesMois =array();
 		$laLigne = $res->fetch();
@@ -341,7 +343,10 @@ class PdoGsb{
 		}
 		return $lesVisiteursValidation;
 	}
-        
+                /**
+ * Retourne les infos du visiteur selectionner en parametre
+ * @param $idVisiteur
+*/
          public function getLeVisiteur($idVisiteur){
         $req = "select * from visiteur where id ='$idVisiteur'";
         $resultat = PdoGsb::$monPdo->query($req);
@@ -349,16 +354,19 @@ class PdoGsb{
         return $fetch;
         }
         
-     /**
+    /** Passe en etat refuse le frais hors forfait en parametre
      * @param $id du frais hors forfait
      */
         
-        public function refuserFraisHorsForfait($id) {
-        $req = "update lignefraishorsforfait set etat ='rf' where id = '$id'";
+        public function refuserFraisHorsForfait($id,$libelle) {
+        $req = "update lignefraishorsforfait set etat ='rf', libelle=CONCAT('« REFUSE » : ','$libelle') where id = '$id'";
         //echo $req;
         PdoGsb::$monPdo->exec($req);
         }
-    
+        
+     /** Report au mois suivant du frais hors forfait en param
+     * @param $id du frais hors forfait
+     */
         public function ReportFraisHorsForfait($moisSuivant, $idVisiteur, $id){
         $req = "UPDATE lignefraishorsforfait SET mois ='$moisSuivant', etat = 'rp' WHERE idvisiteur='$idVisiteur' and id ='$id'";
         PdoGsb::$monPdo->exec($req);
@@ -370,17 +378,22 @@ class PdoGsb{
         PdoGsb::$monPdo->exec($req);
         }
         
-        public function validerFicheFrais($id,$mois) {
-        $req = "update fichefrais set etat ='va', datemodif='$mois' where id = '$id'";
+        public function validerFicheFrais($idVisiteur,$moisFiche) {
+        $req = "update fichefrais set idetat ='va', datemodif= now() where idvisiteur = '$idVisiteur' and mois ='$moisFiche' ";
         //echo $req;
         PdoGsb::$monPdo->exec($req);
         }     
         
-        public function verifEtatFraisHF($idVisiteur,$mois) {
+         /** Verifie les etats des frais afin de valider la fiche de frais
+     * @param $id du frais hors forfait
+     */
+        
+        public function verifEtatFraisHF($idVisiteur,$moisFiche) {
             
         $ok = false;
-		$req = "select count(*) as nblignesfraisHF from lignefraishorsforfait where idvisiteur ='$idVisiteur' and etat = 'at' and mois='$mois' ";
+		$req = "select count(*) as nblignesfraisHF from lignefraishorsforfait where idvisiteur ='$idVisiteur' and mois='$moisFiche' and etat not in ('va','rf') ";
 		$res = PdoGsb::$monPdo->query($req);
+                //echo $req;
 		$laLigne = $res->fetch();
 		if($laLigne['nblignesfraisHF'] == 0){
 			$ok = true;

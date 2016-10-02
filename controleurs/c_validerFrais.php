@@ -8,6 +8,7 @@ $mois = getMois(date("d/m/Y"));
 $numAnnee = substr($mois, 0, 4);
 $numMois = substr($mois, 4, 2);
 $action = $_REQUEST['action'];
+
 switch ($action) {
     
     case 'SelectionnerMois': {
@@ -24,7 +25,7 @@ switch ($action) {
             break;
         }
     case 'fiche': {
-            
+       
             $idVisiteur = $_REQUEST['choixVisiteur'];
             $_SESSION['idVisiteur']=$idVisiteur;
             $choixMois = $_SESSION['choixMois'];
@@ -72,7 +73,8 @@ switch ($action) {
             $idVisiteur = $_SESSION['idVisiteur'];
             $_POST['choixVisiteur'] = $idVisiteur;
             $id = $_REQUEST['id'];
-            $pdo->refuserFraisHorsForfait($id);
+            $libelle = $_REQUEST['libelle'];
+            $pdo->refuserFraisHorsForfait($id,$libelle);
             include('vues/v_refus.php');
             //header('Location: index.php?uc=validerfichefrais&action=fiche');
     }
@@ -107,12 +109,15 @@ switch ($action) {
     case 'validerFicheFrais': {
         $idVisiteur = $_SESSION['idVisiteur'];
         $id = $_REQUEST['id'];
-        if($pdo->verifEtatFraisHF($idVisiteur,$mois) == true){
-           $pdo->validerFicheFrais($id,$mois);
+        $moisFiche = $_SESSION['choixMois'];
+        if($pdo->verifEtatFraisHF($idVisiteur,$moisFiche) == true){
+           $pdo->validerFicheFrais($idVisiteur,$moisFiche);
            include('vues/v_valider.php');
         }
         else{
-        echo "<script>alert('Des frais hors forfait sont encore EN ATTENTE')</script>";
+        echo "<script>alert('Des frais hors forfait sont encore EN ATTENTE ou NON VALIDÉ')</script>";
+        header("Refresh: 3; URL=index.php?uc=validerfichefrais&action=fiche&choixVisiteur=$idVisiteur");
+        
         }
         
         
