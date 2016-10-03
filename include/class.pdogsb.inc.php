@@ -276,7 +276,7 @@ class PdoGsb {
      * @return un tableau associatif de clé un mois -aaaamm- et de valeurs l'année et le mois correspondant
      */
     public function getLesMoisAvalider() {
-        $req = "SELECT mois from fichefrais where idetat ='cr' group by mois ORDER BY `fichefrais`.`mois`  DESC";
+        $req = "SELECT mois from fichefrais where idetat ='cl' group by mois ORDER BY `fichefrais`.`mois`  DESC";
         $res = PdoGsb::$monPdo->query($req);
         $lesMois = array();
         $laLigne = $res->fetch();
