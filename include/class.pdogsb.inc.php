@@ -380,6 +380,10 @@ class PdoGsb{
         
         public function validerFicheFrais($idVisiteur,$moisFiche) {
         $req = "update fichefrais set idetat ='va', datemodif= now() where idvisiteur = '$idVisiteur' and mois ='$moisFiche' ";
+        if(isset($req)){
+           
+        
+        }
         //echo $req;
         PdoGsb::$monPdo->exec($req);
         }     
