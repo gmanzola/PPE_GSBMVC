@@ -8,7 +8,7 @@ if ($group_id == 2) {
     $numAnnee = substr($mois, 0, 4);
     $numMois = substr($mois, 4, 2);
     $action = $_REQUEST['action'];
-    switch ($action) {
+    switch ($action){
         
         case 'SelectionnerMois': {
                 $lesMois = $pdo->getLesMoisAPayer();
@@ -19,8 +19,8 @@ if ($group_id == 2) {
         case 'choisirVisiteur': {
                 $choixMois = $_POST['choixMois'];
                 $_SESSION['choixMois'] = $choixMois;
-                $lesVisiteurs = $pdo->getLesVisiteursAValider($choixMois);
-                include("vues/v_listevisiteur.php");
+                $lesVisiteurs = $pdo->getLesVisiteursAPayer($choixMois);
+                include("vues/v_listeVisiteurAPayer.php");
                 break;
             }
         case 'fiche': {

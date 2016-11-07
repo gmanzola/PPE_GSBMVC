@@ -1,5 +1,5 @@
 ﻿ <div id="contenu">
-    <h2>Les fiches de frais a valider</h2>
+    <h2>Les fiches de frais a payer</h2>
     <h3>Mois à sélectionner : </h3>
     <form action="index.php?uc=suiviFrais&action=choisirVisiteur" method="post">
         <div class="corpsForm">
