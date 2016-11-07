@@ -23,7 +23,7 @@
         </li>
         <br>
         <li class="smenu">
-            <a href="index.php?uc=suiviFrais&action=selectionnerFicheDeFrais" title="Suivre le paiement fiches de frais">Suivi paiement des fiches de frais</a>
+            <a href="index.php?uc=suiviFrais&action=SelectionnerMois" title="Suivre le paiement fiches de frais">Suivi paiement des fiches de frais</a>
         </li>
         </br></br>
         <li class="smenu">
