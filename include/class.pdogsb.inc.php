@@ -448,6 +448,12 @@ class PdoGsb {
         //echo $req;
         PdoGsb::$monPdo->exec($req);
     }
+    
+    public function mettreEnPaiement($idVisiteur, $choixMois) {
+        $req = "update fichefrais set idetat = 'mp',datemodif= now() where idvisiteur = '$idVisiteur' and mois = '$choixMois'";
+        //echo $req;
+        PdoGsb::$monPdo->exec($req);
+    }
 
     /**
      * fonction 

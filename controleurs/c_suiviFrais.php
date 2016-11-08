@@ -16,7 +16,7 @@ if ($group_id == 2) {
                 break;
             }
 
-        case 'choisirVisiteur': {
+        case 'choisirVisiteur': {  
                 $choixMois = $_POST['choixMois'];
                 $_SESSION['choixMois'] = $choixMois;
                 $lesVisiteurs = $pdo->getLesVisiteursAPayer($choixMois);
@@ -37,7 +37,7 @@ if ($group_id == 2) {
                 }
 
                 $lesVisiteurs = $pdo->getLesVisiteursAValider($choixMois);
-                include("vues/v_listevisiteur.php");
+                include("vues/v_listeVisiteurComptable.php");
                 $visiteur = $pdo->getLeVisiteur($idVisiteur);
                 $nom = $visiteur['nom'];
                 $prenom = $visiteur['prenom'];
@@ -53,9 +53,17 @@ if ($group_id == 2) {
                 $datemodif = $lesInfosFicheFrais['datemodif'];
                 $datemodif = dateAnglaisVersFrancais($datemodif);
                 
-                include("vues/v_listefiche.php");
+                include("vues/v_suiviEtatFrais.php");
                 break;
             }
+            
+        case 'mettreEnPaiement' :{
+                $idVisiteur = $_SESSION['idVisiteur'];
+                $choixMois = $_SESSION['choixMois'];
+                $pdo->mettreEnPaiement($idVisiteur,$choixMois);
+                include("vues/v_validation.php");
+                break;
+        }
             
     }
     }

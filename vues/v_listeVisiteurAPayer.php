@@ -1,5 +1,5 @@
 ﻿ <div id="contenu">
-    <h2>Valider fiche frais </h2>
+    <h2>Mettre en Paiement les fiches de frais </h2>
     <h3>Visiteur à sélectionner : </h3>
     
     <div>

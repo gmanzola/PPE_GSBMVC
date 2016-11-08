@@ -70,7 +70,5 @@
         ?>
     </table>
         </form>
-    <center><a href="index.php?uc=validerFrais&action=validerFicheFrais&id=<?php echo $id;?>">Valider la fiche</a></center>
-</div>
-          
+</div>     
     </div>

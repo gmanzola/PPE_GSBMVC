@@ -115,8 +115,6 @@ if ($group_id == 2) {
                     echo "<script>alert('Des frais hors forfait sont encore EN ATTENTE')</script>";
                     header("Refresh: 3; URL=index.php?uc=validerFrais&action=fiche&choixVisiteur=$idVisiteur");
                 }
-
-
                 break;
             }
     }
