@@ -36,8 +36,8 @@ if ($group_id == 2) {
                     $idVisiteur = $_SESSION['choixVisiteur'];
                 }
 
-                $lesVisiteurs = $pdo->getLesVisiteursAValider($choixMois);
-                include("vues/v_listeVisiteurComptable.php");
+                $lesVisiteurs = $pdo->getLesVisiteursAPayer($choixMois);
+                include("vues/v_listeVisiteurAPayer.php");
                 $visiteur = $pdo->getLeVisiteur($idVisiteur);
                 $nom = $visiteur['nom'];
                 $prenom = $visiteur['prenom'];
@@ -61,7 +61,7 @@ if ($group_id == 2) {
                 $idVisiteur = $_SESSION['idVisiteur'];
                 $choixMois = $_SESSION['choixMois'];
                 $pdo->mettreEnPaiement($idVisiteur,$choixMois);
-                include("vues/v_validation.php");
+                include("vues/v_mettreEnPaiement.php");
                 break;
         }
             
