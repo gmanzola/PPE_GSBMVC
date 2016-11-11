@@ -106,7 +106,7 @@ if ($group_id == 2) {
         case 'validerFicheFrais': {
                 $idVisiteur = $_SESSION['idVisiteur'];
                 $choixMois = $_SESSION['choixMois'];
-                $id = $_REQUEST['id'];
+                //$id = $_REQUEST['id'];
                 $montantTotal = $pdo->MontantTotal($idVisiteur,$choixMois);
                 if ($pdo->verifEtatFraisHF($idVisiteur, $choixMois) == true) {
                     $pdo->validerFicheFrais($idVisiteur, $choixMois,$montantTotal);
@@ -122,5 +122,3 @@ if ($group_id == 2) {
     include("vues/accesInterdit.php");
 }
 ?>
-</body>
-</html>

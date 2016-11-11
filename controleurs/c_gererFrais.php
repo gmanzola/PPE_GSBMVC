@@ -46,6 +46,13 @@ if ($group_id == 1) {
     }
     $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idvisiteur, $mois);
     $lesFraisForfait = $pdo->getLesFraisForfait($idvisiteur, $mois);
+    
+    $lesPuissances = $pdo->getLesPuissances();
+    // Afin de sélectionner par défaut une puisssance dans la zone de liste
+    // on demande toutes les clés, et on prend la première,
+    $lesCles = array_keys($lesPuissances);
+    $puissanceASelectionner = $lesCles[0];
+    
     include("vues/v_listeFraisForfait.php");
     include("vues/v_listeFraisHorsForfait.php");
 } else {

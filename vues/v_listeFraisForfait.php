@@ -22,17 +22,37 @@
 			<?php
 				}
 			?>
+                                        
+        <label for="puissance" accesskey="n">Puissance : </label>
+        <select id="puissance" name="puissance">
+
+                                        <?php
+			foreach ($lesPuissances as $unePuissance)
+			{
+                                $id = $unePuissance['id'];
+				$type =  $unePuissance['typevehicule'];
+				$puissance =  $unePuissance['puissance'];
+				if($lesPuissances == $puissanceASelectionner){
+				?>
+                    <option selected value="<?php echo $id ?>"><?php echo  $type." ".$puissance ?> </option>
+				<?php 
+				}
+				else{ ?>
+                    <option value="<?php echo $id ?>"><?php echo  $type." ".$puissance ?> </option>
+				<?php 
+				}
 			
-			
-			
-			
+			}
            
+		   ?>
+                    </select>
+
           </fieldset>
       </div>
       <div class="piedForm">
       <p>
-        <input id="ok" type="submit" value="Valider"/>
         <input id="annuler" type="reset" value="Effacer"/>
+        <input id="ok" type="submit" value="Valider"/>
       </p> 
       </div>
         

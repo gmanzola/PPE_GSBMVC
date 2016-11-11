@@ -67,3 +67,7 @@ if ($group_id == 2) {
             
     }
     }
+    else {
+    include("vues/accesInterdit.php");
+}
+?>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Sam 01 Octobre 2016 à 17:50
+-- Généré le :  Sam 12 Novembre 2016 à 00:31
 -- Version du serveur :  5.5.52-0+deb8u1
 -- Version de PHP :  5.6.24-0+deb8u1
 
@@ -39,10 +39,11 @@ INSERT INTO `etat` (`id`, `libelle`) VALUES
 ('at', 'En attente'),
 ('cl', 'saisie clôturée'),
 ('cr', 'fiche créée, saisie en cours'),
+('mp', 'mise en paiement'),
 ('rb', 'remboursée'),
 ('rf', 'refusé'),
 ('rp', 'reporté'),
-('va', 'validée et mise en paiement');
+('va', 'validée');
 
 -- --------------------------------------------------------
 
@@ -64,15 +65,24 @@ CREATE TABLE IF NOT EXISTS `fichefrais` (
 --
 
 INSERT INTO `fichefrais` (`idvisiteur`, `mois`, `nbjustificatifs`, `montantvalide`, `datemodif`, `idetat`) VALUES
-('a12', '201609', 0, 0.00, '2016-09-08', 'cr'),
-('a131', '201609', 0, 0.00, '2016-09-08', 'cr'),
-('a131', '201610', 0, 0.00, '2016-10-01', 'cr'),
-('a131', '201611', 0, 0.00, '2016-10-01', 'cr'),
-('a17', '201609', 0, 0.00, '2016-09-05', 'cr'),
-('a55', '201609', 0, 0.00, '2016-09-05', 'cr'),
-('a945', '201609', 0, 0.00, '2016-09-14', 'cr'),
-('b16', '201609', 0, 0.00, '2016-09-23', 'cr'),
-('b4', '201609', 0, 0.00, '2016-09-29', 'cr');
+('a12', '201609', 0, 0.00, '2016-11-08', 'va'),
+('a131', '201609', 0, 12165.20, '2016-11-08', 'mp'),
+('a131', '201610', 0, 2670.20, '2016-11-08', 'cl'),
+('a131', '201611', 0, 0.00, '2016-11-08', 'cr'),
+('a17', '201609', 0, 28053.98, '2016-11-08', 'mp'),
+('a17', '201610', 0, 6291.20, '2016-11-10', 'va'),
+('a17', '201611', 0, 0.00, '2016-11-08', 'cr'),
+('a55', '201609', 0, 7121.60, '2016-11-08', 'mp'),
+('a55', '201610', 0, 0.00, '2016-11-08', 'cl'),
+('a55', '201611', 0, 0.00, '2016-11-08', 'cr'),
+('a945', '201609', 0, 0.00, '2016-11-08', 'cl'),
+('b13', '201610', 0, 0.00, '2016-11-08', 'cl'),
+('b13', '201611', 0, 0.00, '2016-11-08', 'cr'),
+('b13', '201612', 0, 0.00, '2016-11-08', 'cr'),
+('b16', '201609', 0, 0.00, '2016-11-08', 'cl'),
+('b16', '201611', 0, 0.00, '2016-11-08', 'cr'),
+('b4', '201609', 0, 9240.00, '2016-11-08', 'va'),
+('b4', '201610', 0, 0.00, '2016-11-08', 'cl');
 
 -- --------------------------------------------------------
 
@@ -93,6 +103,9 @@ CREATE TABLE IF NOT EXISTS `fraisforfait` (
 INSERT INTO `fraisforfait` (`id`, `libelle`, `montant`) VALUES
 ('etp', 'forfait etape', 110.00),
 ('km', 'frais kilométrique', 0.62),
+('km1', 'frais kilométrique', 0.52),
+('km2', 'frais kilométrique', 0.58),
+('km3', 'frais kilométrique', 0.67),
 ('nui', 'nuitée hôtel', 80.00),
 ('rep', 'repas restaurant', 25.00);
 
@@ -118,38 +131,74 @@ INSERT INTO `lignefraisforfait` (`idvisiteur`, `mois`, `idfraisforfait`, `quanti
 ('a12', '201609', 'km', 43),
 ('a12', '201609', 'nui', 100),
 ('a12', '201609', 'rep', 100),
-('a131', '201609', 'etp', 45),
-('a131', '201609', 'km', 34),
-('a131', '201609', 'nui', 50),
-('a131', '201609', 'rep', 80),
-('a131', '201610', 'etp', 0),
-('a131', '201610', 'km', 0),
-('a131', '201610', 'nui', 0),
-('a131', '201610', 'rep', 0),
-('a131', '201611', 'etp', 0),
-('a131', '201611', 'km', 0),
-('a131', '201611', 'nui', 0),
-('a131', '201611', 'rep', 0),
+('a131', '201609', 'etp', 50),
+('a131', '201609', 'km', 10),
+('a131', '201609', 'nui', 43),
+('a131', '201609', 'rep', 76),
+('a131', '201610', 'etp', 5),
+('a131', '201610', 'km', 10),
+('a131', '201610', 'nui', 15),
+('a131', '201610', 'rep', 20),
+('a131', '201611', 'etp', 10),
+('a131', '201611', 'km', 12),
+('a131', '201611', 'nui', 5),
+('a131', '201611', 'rep', 3),
 ('a17', '201609', 'etp', 122),
-('a17', '201609', 'km', 8793),
+('a17', '201609', 'km', 879),
 ('a17', '201609', 'nui', 100),
 ('a17', '201609', 'rep', 58),
+('a17', '201610', 'etp', 50),
+('a17', '201610', 'km', 10),
+('a17', '201610', 'nui', 5),
+('a17', '201610', 'rep', 12),
+('a17', '201611', 'etp', 0),
+('a17', '201611', 'km', 0),
+('a17', '201611', 'nui', 0),
+('a17', '201611', 'rep', 0),
 ('a55', '201609', 'etp', 10),
 ('a55', '201609', 'km', 30),
 ('a55', '201609', 'nui', 40),
 ('a55', '201609', 'rep', 32),
+('a55', '201610', 'etp', 0),
+('a55', '201610', 'km', 0),
+('a55', '201610', 'nui', 0),
+('a55', '201610', 'rep', 0),
+('a55', '201611', 'etp', 0),
+('a55', '201611', 'km', 0),
+('a55', '201611', 'nui', 0),
+('a55', '201611', 'rep', 0),
 ('a945', '201609', 'etp', 15),
 ('a945', '201609', 'km', 20),
 ('a945', '201609', 'nui', 35),
 ('a945', '201609', 'rep', 40),
+('b13', '201610', 'etp', 5),
+('b13', '201610', 'km', 5),
+('b13', '201610', 'nui', 2),
+('b13', '201610', 'rep', 3),
+('b13', '201611', 'etp', 0),
+('b13', '201611', 'km', 0),
+('b13', '201611', 'nui', 0),
+('b13', '201611', 'rep', 0),
+('b13', '201612', 'etp', 0),
+('b13', '201612', 'km', 0),
+('b13', '201612', 'nui', 0),
+('b13', '201612', 'rep', 0),
 ('b16', '201609', 'etp', 20),
 ('b16', '201609', 'km', 50),
-('b16', '201609', 'nui', 50),
+('b16', '201609', 'nui', 49),
 ('b16', '201609', 'rep', 40),
+('b16', '201611', 'etp', 0),
+('b16', '201611', 'km', 0),
+('b16', '201611', 'nui', 0),
+('b16', '201611', 'rep', 0),
 ('b4', '201609', 'etp', 50),
 ('b4', '201609', 'km', 200),
 ('b4', '201609', 'nui', 9),
-('b4', '201609', 'rep', 13);
+('b4', '201609', 'rep', 13),
+('b4', '201610', 'etp', 0),
+('b4', '201610', 'km', 0),
+('b4', '201610', 'nui', 0),
+('b4', '201610', 'rep', 0);
 
 -- --------------------------------------------------------
 
@@ -165,33 +214,32 @@ CREATE TABLE IF NOT EXISTS `lignefraishorsforfait` (
   `date` date DEFAULT NULL,
   `montant` decimal(10,2) DEFAULT NULL,
   `etat` char(2) NOT NULL DEFAULT 'ea'
-) ENGINE=InnoDB AUTO_INCREMENT=169 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=173 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `lignefraishorsforfait`
 --
 
 INSERT INTO `lignefraishorsforfait` (`id`, `idvisiteur`, `mois`, `libelle`, `date`, `montant`, `etat`) VALUES
-(25, 'a17', '201609', 'Achat costume pour RDV', '2016-08-04', 20.00, 'at'),
+(25, 'a17', '201609', 'Achat costume pour RDV', '2016-08-04', 20.00, 'va'),
 (39, 'a12', '201609', 'Dejeuner pour investisseur', '2016-09-26', 232.00, 'at'),
 (48, 'a55', '201609', 'Repas avec client', '2016-09-05', 99.00, 'va'),
-(50, 'b4', '201609', 'Repas avec client', '2016-09-06', 17.00, 'at'),
+(50, 'b4', '201609', 'Repas avec client', '2016-09-06', 17.00, 'va'),
 (53, 'a12', '201609', 'voyage sncf', '2016-09-19', 56.00, 'at'),
 (54, 'a12', '201609', 'achat de matériel de papèterie', '2016-09-19', 17.00, 'at'),
 (55, 'a12', '201609', 'voyage sncf', '2016-09-22', 64.00, 'at'),
-(56, 'a131', '201611', 'rémunération intervenant/spécialiste', '2016-09-28', 339.00, 'rp'),
-(57, 'a131', '201609', 'location équipement vidéo/sonore', '2016-09-14', 414.00, 'va'),
-(58, 'a131', '201609', 'frais vestimentaire/représentation', '2016-09-01', 275.00, 'at'),
-(59, 'a131', '201609', 'rémunération intervenant/spécialiste', '2016-09-23', 923.00, 'at'),
-(60, 'a17', '201609', 'taxi', '2016-09-28', 28.00, 'at'),
-(61, 'a17', '201609', 'repas avec praticien', '2016-09-13', 44.00, 'at'),
-(62, 'a17', '201609', 'taxi', '2016-09-16', 41.00, 'at'),
-(63, 'a17', '201609', 'location salle conférence', '2016-09-01', 121.00, 'at'),
-(64, 'a17', '201609', 'location équipement vidéo/sonore', '2016-09-09', 667.00, 'at'),
-(65, 'a17', '201609', 'frais vestimentaire/représentation', '2016-09-25', 370.00, 'at'),
-(66, 'a55', '201609', 'location véhicule', '2016-09-12', 390.00, 'at'),
-(67, 'a55', '201609', 'frais vestimentaire/représentation', '2016-09-01', 171.00, 'at'),
-(68, 'a55', '201609', 'traiteur, alimentation, boisson', '2016-09-26', 91.00, 'at'),
+(57, 'a131', '201610', 'location équipement vidéo/sonore', '2016-09-14', 414.00, 'va'),
+(58, 'a131', '201609', '« REFUSE » frais vestimentaire/représentation', '2016-09-01', 275.00, 'rf'),
+(59, 'a131', '201609', '« REFUSE » rémunération intervenant/spécialiste', '2016-09-23', 923.00, 'rf'),
+(60, 'a17', '201609', '« REFUSE » taxi', '2016-09-28', 28.00, 'rf'),
+(61, 'a17', '201610', 'repas avec praticien', '2016-09-13', 44.00, 'va'),
+(62, 'a17', '201610', 'taxi', '2016-09-16', 41.00, 'va'),
+(63, 'a17', '201609', 'location salle conférence', '2016-09-01', 121.00, 'va'),
+(64, 'a17', '201609', 'location équipement vidéo/sonore', '2016-09-09', 667.00, 'va'),
+(65, 'a17', '201609', 'frais vestimentaire/représentation', '2016-09-25', 370.00, 'va'),
+(66, 'a55', '201609', 'location véhicule', '2016-09-12', 390.00, 'va'),
+(67, 'a55', '201609', 'frais vestimentaire/représentation', '2016-09-01', 171.00, 'va'),
+(68, 'a55', '201609', 'traiteur, alimentation, boisson', '2016-09-26', 91.00, 'va'),
 (69, 'a945', '201609', 'frais vestimentaire/représentation', '2016-09-06', 155.00, 'at'),
 (70, 'a945', '201609', 'repas avec praticien', '2016-09-10', 33.00, 'at'),
 (71, 'a945', '201609', 'location véhicule', '2016-09-28', 49.00, 'at'),
@@ -200,71 +248,68 @@ INSERT INTO `lignefraishorsforfait` (`id`, `idvisiteur`, `mois`, `libelle`, `dat
 (74, 'b16', '201609', 'traiteur, alimentation, boisson', '2016-09-19', 342.00, 'at'),
 (75, 'b16', '201609', 'location équipement vidéo/sonore', '2016-09-16', 583.00, 'at'),
 (76, 'b16', '201609', 'repas avec praticien', '2016-09-14', 40.00, 'at'),
-(77, 'b4', '201609', 'location équipement vidéo/sonore', '2016-09-10', 586.00, 'at'),
+(77, 'b4', '201609', 'location équipement vidéo/sonore', '2016-09-10', 586.00, 'va'),
 (78, 'a12', '201609', 'frais vestimentaire/représentation', '2016-09-18', 132.00, 'at'),
-(79, 'a131', '201609', 'location salle conférence', '2016-09-14', 649.00, 'at'),
-(80, 'a131', '201609', 'location salle conférence', '2016-09-25', 333.00, 'at'),
-(81, 'a17', '201609', 'voyage sncf', '2016-09-13', 90.00, 'at'),
-(82, 'a17', '201609', 'frais vestimentaire/représentation', '2016-09-02', 141.00, 'at'),
-(83, 'a17', '201609', 'voyage sncf', '2016-09-01', 50.00, 'at'),
-(84, 'a55', '201609', 'achat de matériel de papèterie', '2016-09-05', 12.00, 'at'),
-(85, 'a55', '201609', 'voyage sncf', '2016-09-03', 79.00, 'at'),
-(86, 'a55', '201609', 'achat de matériel de papèterie', '2016-09-16', 20.00, 'at'),
+(80, 'a131', '201610', 'location salle conférence', '2016-09-25', 333.00, 'rp'),
+(81, 'a17', '201609', 'voyage sncf', '2016-09-13', 90.00, 'va'),
+(82, 'a17', '201609', 'frais vestimentaire/représentation', '2016-09-02', 141.00, 'va'),
+(83, 'a17', '201609', 'voyage sncf', '2016-09-01', 50.00, 'va'),
+(84, 'a55', '201609', 'achat de matériel de papèterie', '2016-09-05', 12.00, 'va'),
+(85, 'a55', '201609', 'voyage sncf', '2016-09-03', 79.00, 'va'),
+(86, 'a55', '201609', 'achat de matériel de papèterie', '2016-09-16', 20.00, 'va'),
 (87, 'a945', '201609', 'taxi', '2016-09-22', 69.00, 'at'),
 (88, 'b16', '201609', 'taxi', '2016-09-26', 67.00, 'at'),
 (89, 'b16', '201609', 'traiteur, alimentation, boisson', '2016-09-22', 99.00, 'at'),
 (90, 'b16', '201609', 'frais vestimentaire/représentation', '2016-09-08', 303.00, 'at'),
-(91, 'b4', '201609', 'traiteur, alimentation, boisson', '2016-09-14', 254.00, 'at'),
-(92, 'b4', '201609', 'repas avec praticien', '2016-09-15', 44.00, 'at'),
-(93, 'b4', '201609', 'voyage sncf', '2016-09-16', 130.00, 'at'),
+(91, 'b4', '201609', 'traiteur, alimentation, boisson', '2016-09-14', 254.00, 'va'),
+(92, 'b4', '201609', 'repas avec praticien', '2016-09-15', 44.00, 'va'),
+(93, 'b4', '201609', '« REFUSE » voyage sncf', '2016-09-16', 130.00, 'rf'),
 (94, 'a12', '201609', 'repas avec praticien', '2016-09-11', 48.00, 'at'),
 (95, 'a12', '201609', 'voyage sncf', '2016-09-23', 148.00, 'at'),
 (96, 'a12', '201609', 'achat de matériel de papèterie', '2016-09-12', 18.00, 'at'),
 (97, 'a12', '201609', 'traiteur, alimentation, boisson', '2016-09-13', 69.00, 'at'),
-(98, 'a131', '201609', 'location salle conférence', '2016-09-21', 153.00, 'rf'),
-(99, 'a131', '201609', 'taxi', '2016-09-22', 65.00, 'at'),
-(100, 'a131', '201609', 'traiteur, alimentation, boisson', '2016-09-19', 425.00, 'at'),
-(101, 'a17', '201609', 'location équipement vidéo/sonore', '2016-09-09', 749.00, 'at'),
-(102, 'a17', '201609', 'taxi', '2016-09-25', 78.00, 'at'),
-(103, 'a55', '201609', 'location équipement vidéo/sonore', '2016-09-15', 271.00, 'at'),
-(104, 'a55', '201609', 'location équipement vidéo/sonore', '2016-09-21', 356.00, 'at'),
+(98, 'a131', '201609', 'location salle conférence', '2016-09-21', 153.00, 'va'),
+(100, 'a131', '201609', 'traiteur, alimentation, boisson', '2016-09-19', 425.00, 'va'),
+(101, 'a17', '201609', 'location équipement vidéo/sonore', '2016-09-09', 749.00, 'va'),
+(102, 'a17', '201609', 'taxi', '2016-09-25', 78.00, 'va'),
+(103, 'a55', '201610', 'location équipement vidéo/sonore', '2016-09-15', 271.00, 'rp'),
+(104, 'a55', '201610', 'location équipement vidéo/sonore', '2016-09-21', 356.00, 'rp'),
 (105, 'a945', '201609', 'frais vestimentaire/représentation', '2016-09-18', 374.00, 'at'),
 (106, 'a945', '201609', 'location salle conférence', '2016-09-20', 252.00, 'at'),
 (107, 'b16', '201609', 'voyage sncf', '2016-09-26', 83.00, 'at'),
-(108, 'b4', '201609', 'location salle conférence', '2016-09-16', 415.00, 'at'),
+(108, 'b4', '201610', 'location salle conférence', '2016-09-16', 415.00, 'rp'),
 (109, 'a12', '201609', 'repas avec praticien', '2016-09-09', 50.00, 'at'),
 (110, 'a12', '201609', 'achat de matériel de papèterie', '2016-09-21', 48.00, 'at'),
 (111, 'a12', '201609', 'traiteur, alimentation, boisson', '2016-09-17', 450.00, 'at'),
-(112, 'a131', '201609', 'location véhicule', '2016-09-01', 159.00, 'at'),
-(113, 'a131', '201609', 'taxi', '2016-09-05', 52.00, 'at'),
-(114, 'a131', '201609', 'repas avec praticien', '2016-09-09', 43.00, 'at'),
-(115, 'a17', '201609', 'location équipement vidéo/sonore', '2016-09-05', 679.00, 'at'),
-(116, 'a17', '201609', 'location salle conférence', '2016-09-14', 586.00, 'at'),
-(117, 'a17', '201609', 'repas avec praticien', '2016-09-11', 47.00, 'at'),
-(118, 'a55', '201609', 'taxi', '2016-09-18', 43.00, 'at'),
-(119, 'a55', '201609', 'voyage sncf', '2016-09-16', 97.00, 'at'),
-(120, 'a55', '201609', 'taxi', '2016-09-16', 26.00, 'at'),
-(121, 'a55', '201609', 'location véhicule', '2016-09-11', 240.00, 'at'),
+(112, 'a131', '201609', 'location véhicule', '2016-09-01', 159.00, 'va'),
+(113, 'a131', '201609', '« REFUSE » : taxi', '2016-09-05', 52.00, 'rf'),
+(114, 'a131', '201609', '« REFUSE » repas avec praticien', '2016-09-09', 43.00, 'rf'),
+(115, 'a17', '201609', 'location équipement vidéo/sonore', '2016-09-05', 679.00, 'va'),
+(116, 'a17', '201609', 'location salle conférence', '2016-09-14', 586.00, 'va'),
+(117, 'a17', '201609', 'repas avec praticien', '2016-09-11', 47.00, 'va'),
+(118, 'a55', '201610', 'taxi', '2016-09-18', 43.00, 'rp'),
+(119, 'a55', '201610', 'voyage sncf', '2016-09-16', 97.00, 'rp'),
+(120, 'a55', '201610', 'taxi', '2016-09-16', 26.00, 'rp'),
+(121, 'a55', '201609', '« REFUSE » location véhicule', '2016-09-11', 240.00, 'rf'),
 (122, 'a945', '201609', 'voyage sncf', '2016-09-20', 99.00, 'at'),
 (123, 'b16', '201609', 'traiteur, alimentation, boisson', '2016-09-28', 170.00, 'at'),
 (124, 'b16', '201609', 'frais vestimentaire/représentation', '2016-09-22', 77.00, 'at'),
 (125, 'b16', '201609', 'achat de matériel de papèterie', '2016-09-18', 30.00, 'at'),
 (126, 'b16', '201609', 'traiteur, alimentation, boisson', '2016-09-13', 250.00, 'at'),
 (127, 'b16', '201609', 'frais vestimentaire/représentation', '2016-09-19', 105.00, 'at'),
-(128, 'b4', '201609', 'location équipement vidéo/sonore', '2016-09-25', 233.00, 'at'),
+(128, 'b4', '201610', 'location équipement vidéo/sonore', '2016-09-25', 233.00, 'rp'),
 (129, 'a12', '201609', 'traiteur, alimentation, boisson', '2016-09-02', 360.00, 'at'),
 (130, 'a12', '201609', 'traiteur, alimentation, boisson', '2016-09-14', 41.00, 'at'),
 (131, 'a12', '201609', 'voyage sncf', '2016-09-06', 65.00, 'at'),
-(132, 'a131', '201609', 'frais vestimentaire/représentation', '2016-09-11', 152.00, 'at'),
-(133, 'a131', '201609', 'location véhicule', '2016-09-27', 353.00, 'at'),
-(134, 'a131', '201610', 'voyage sncf', '2016-09-02', 33.00, 'rp'),
-(135, 'a17', '201609', 'location équipement vidéo/sonore', '2016-09-21', 817.00, 'at'),
-(136, 'a17', '201609', 'voyage sncf', '2016-09-19', 109.00, 'at'),
-(137, 'a55', '201609', 'rémunération intervenant/spécialiste', '2016-09-27', 702.00, 'at'),
-(138, 'a55', '201609', 'repas avec praticien', '2016-09-21', 31.00, 'at'),
-(139, 'a55', '201609', 'repas avec praticien', '2016-09-22', 43.00, 'at'),
-(140, 'a55', '201609', 'traiteur, alimentation, boisson', '2016-09-02', 63.00, 'at'),
-(141, 'a55', '201609', 'location équipement vidéo/sonore', '2016-09-01', 527.00, 'at'),
+(132, 'a131', '201609', 'frais vestimentaire/représentation', '2016-09-11', 152.00, 'va'),
+(134, 'a131', '201609', '« REFUSE » : voyage sncf', '2016-09-02', 33.00, 'rf'),
+(135, 'a17', '201609', 'location équipement vidéo/sonore', '2016-09-21', 817.00, 'va'),
+(136, 'a17', '201609', 'voyage sncf', '2016-09-19', 109.00, 'va'),
+(137, 'a55', '201609', '« REFUSE » rémunération intervenant/spécialiste', '2016-09-27', 702.00, 'rf'),
+(138, 'a55', '201609', '« REFUSE » repas avec praticien', '2016-09-21', 31.00, 'rf'),
+(139, 'a55', '201609', '« REFUSE » repas avec praticien', '2016-09-22', 43.00, 'rf'),
+(140, 'a55', '201610', 'traiteur, alimentation, boisson', '2016-09-02', 63.00, 'va'),
+(141, 'a55', '201609', 'location équipement vidéo/sonore', '2016-09-01', 527.00, 'va'),
 (142, 'a945', '201609', 'frais vestimentaire/représentation', '2016-09-24', 414.00, 'at'),
 (143, 'b16', '201609', 'location salle conférence', '2016-09-27', 578.00, 'at'),
 (144, 'b16', '201609', 'location équipement vidéo/sonore', '2016-09-25', 578.00, 'at'),
@@ -272,26 +317,30 @@ INSERT INTO `lignefraishorsforfait` (`id`, `idvisiteur`, `mois`, `libelle`, `dat
 (146, 'b16', '201609', 'achat de matériel de papèterie', '2016-09-06', 49.00, 'at'),
 (147, 'b16', '201609', 'traiteur, alimentation, boisson', '2016-09-07', 403.00, 'at'),
 (148, 'b16', '201609', 'rémunération intervenant/spécialiste', '2016-09-09', 827.00, 'at'),
-(149, 'b4', '201609', 'location salle conférence', '2016-09-11', 587.00, 'at'),
-(150, 'b4', '201609', 'location salle conférence', '2016-09-27', 460.00, 'at'),
+(149, 'b4', '201609', '« REFUSE » location salle conférence', '2016-09-11', 587.00, 'rf'),
+(150, 'b4', '201609', '« REFUSE » location salle conférence', '2016-09-27', 460.00, 'rf'),
 (151, 'a12', '201609', 'location salle conférence', '2016-09-25', 182.00, 'at'),
 (152, 'a12', '201609', 'repas avec praticien', '2016-09-07', 50.00, 'at'),
 (153, 'a12', '201609', 'traiteur, alimentation, boisson', '2016-09-01', 344.00, 'at'),
-(154, 'a131', '201609', 'location salle conférence', '2016-09-02', 430.00, 'at'),
-(155, 'a17', '201609', 'traiteur, alimentation, boisson', '2016-09-04', 115.00, 'at'),
-(156, 'a55', '201609', 'frais vestimentaire/représentation', '2016-09-26', 366.00, 'at'),
-(157, 'a55', '201609', 'frais vestimentaire/représentation', '2016-09-03', 248.00, 'at'),
+(154, 'a131', '201609', 'location salle conférence', '2016-09-02', 430.00, 'va'),
+(155, 'a17', '201609', 'traiteur, alimentation, boisson', '2016-09-04', 115.00, 'va'),
+(156, 'a55', '201609', 'frais vestimentaire/représentation', '2016-09-26', 366.00, 'va'),
+(157, 'a55', '201609', 'frais vestimentaire/représentation', '2016-09-03', 248.00, 'va'),
 (158, 'a945', '201609', 'frais vestimentaire/représentation', '2016-09-13', 110.00, 'at'),
 (159, 'a945', '201609', 'traiteur, alimentation, boisson', '2016-09-13', 429.00, 'at'),
 (160, 'b16', '201609', 'location salle conférence', '2016-09-18', 142.00, 'at'),
 (161, 'b16', '201609', 'location salle conférence', '2016-09-24', 479.00, 'at'),
 (162, 'b16', '201609', 'voyage sncf', '2016-09-05', 91.00, 'at'),
 (163, 'b16', '201609', 'frais vestimentaire/représentation', '2016-09-15', 91.00, 'at'),
-(164, 'b4', '201609', 'taxi', '2016-09-06', 44.00, 'at'),
-(165, 'b4', '201609', 'voyage sncf', '2016-09-02', 143.00, 'at'),
-(166, 'b4', '201609', 'rémunération intervenant/spécialiste', '2016-09-18', 596.00, 'at'),
-(167, 'b4', '201609', 'rémunération intervenant/spécialiste', '2016-09-06', 1030.00, 'at'),
-(168, 'a131', '201610', 'Cadeau', '2016-09-05', 17.00, 'rp');
+(164, 'b4', '201609', 'taxi', '2016-09-06', 44.00, 'va'),
+(165, 'b4', '201609', '« REFUSE » voyage sncf', '2016-09-02', 143.00, 'rf'),
+(166, 'b4', '201609', 'rémunération intervenant/spécialiste', '2016-09-18', 596.00, 'va'),
+(167, 'b4', '201609', 'rémunération intervenant/spécialiste', '2016-09-06', 1030.00, 'va'),
+(168, 'a131', '201610', 'Cadeau', '2016-09-05', 17.00, 'rp'),
+(169, 'b13', '201612', 'Exces de vitesse', '2016-09-26', 135.00, 'rp'),
+(170, 'b13', '201610', 'Test', '2016-09-26', 20.00, 'at'),
+(171, 'b13', '201610', 'Cadeau', '2016-09-09', 213.00, 'at'),
+(172, 'b13', '201610', 'Dejeuner pour investisseur', '2016-10-01', 144.00, 'va');
 
 -- --------------------------------------------------------
 
@@ -311,6 +360,28 @@ CREATE TABLE IF NOT EXISTS `typecompte` (
 INSERT INTO `typecompte` (`id`, `type`) VALUES
 (1, 'Visiteur'),
 (2, 'Comptable');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `typevehicule`
+--
+
+CREATE TABLE IF NOT EXISTS `typevehicule` (
+  `id` char(3) NOT NULL,
+  `typevehicule` varchar(15) NOT NULL,
+  `puissance` char(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `typevehicule`
+--
+
+INSERT INTO `typevehicule` (`id`, `typevehicule`, `puissance`) VALUES
+('km', 'Essence', '4CV'),
+('km1', 'Disel', '4CV'),
+('km2', 'Diesel', '5/6CV'),
+('km3', 'Essence', '5/6CV');
 
 -- --------------------------------------------------------
 
@@ -407,6 +478,12 @@ ALTER TABLE `typecompte`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `typevehicule`
+--
+ALTER TABLE `typevehicule`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `visiteur`
 --
 ALTER TABLE `visiteur`
@@ -420,7 +497,7 @@ ALTER TABLE `visiteur`
 -- AUTO_INCREMENT pour la table `lignefraishorsforfait`
 --
 ALTER TABLE `lignefraishorsforfait`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=169;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=173;
 --
 -- AUTO_INCREMENT pour la table `typecompte`
 --
@@ -449,6 +526,12 @@ ADD CONSTRAINT `lignefraisforfait_ibfk_2` FOREIGN KEY (`idfraisforfait`) REFEREN
 --
 ALTER TABLE `lignefraishorsforfait`
 ADD CONSTRAINT `lignefraishorsforfait_ibfk_1` FOREIGN KEY (`idvisiteur`, `mois`) REFERENCES `fichefrais` (`idvisiteur`, `mois`);
+
+--
+-- Contraintes pour la table `typevehicule`
+--
+ALTER TABLE `typevehicule`
+ADD CONSTRAINT `typevehicule_ibfk_1` FOREIGN KEY (`id`) REFERENCES `fraisforfait` (`id`);
 
 --
 -- Contraintes pour la table `visiteur`

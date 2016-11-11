@@ -58,8 +58,6 @@ class PdoGsb {
      * @return l'id, le nom et le prénom sous la forme d'un tableau associatif
      */
     public function getInfosVisiteur($login, $mdp) {
-        //$salt = "VM9DIwqzDv";
-        //$mdpsecurise="$salt.$mdp";
         $req = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom, typecompte.type, visiteur.typeCompte from visiteur
                 INNER JOIN typecompte ON typecompte.id = visiteur.typeCompte
 		        where visiteur.login='$login' and visiteur.mdp=SHA1('$mdp')";
@@ -116,6 +114,17 @@ class PdoGsb {
 		on fraisforfait.id = lignefraisforfait.idfraisforfait
 		where lignefraisforfait.idvisiteur ='$idvisiteur' and lignefraisforfait.mois='$mois'
 		order by lignefraisforfait.idfraisforfait";
+        $res = PdoGsb::$monPdo->query($req);
+        $lesLignes = $res->fetchAll();
+        return $lesLignes;
+    }
+    
+    /**
+     * Retourne sous forme d'un tableau associatif toutes les lignes de TYPEVEHICULE
+     * @return l'id, le typevehicule et la puissance sous la forme d'un tableau associatif
+     */
+    public function getLesPuissances() {
+        $req = "SELECT * FROM `typevehicule`";
         $res = PdoGsb::$monPdo->query($req);
         $lesLignes = $res->fetchAll();
         return $lesLignes;
