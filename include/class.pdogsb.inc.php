@@ -462,7 +462,7 @@ class PdoGsb {
     public function verifEtatFraisHF($idVisiteur, $choixMois) {
 
         $ok = false;
-        $req = "select count(*) as nblignesfraisHF from lignefraishorsforfait where idvisiteur ='$idVisiteur' and etat = 'at' and mois='$choixMois' ";
+        $req = "select count(*) as nblignesfraisHF from lignefraishorsforfait where idvisiteur ='$idVisiteur' and etat = 'at' or etat = 'rp' and mois='$choixMois' ";
         $res = PdoGsb::$monPdo->query($req);
         $laLigne = $res->fetch();
         if ($laLigne['nblignesfraisHF'] == 0) {

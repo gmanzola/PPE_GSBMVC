@@ -3,7 +3,7 @@
     
     <h3>Fiche de frais du Visiteur "<?php echo $nom. " " .$prenom ?>" du mois <?php echo $numMois . "-" . $numAnnee ?> : </h3>
     
-    <form method="POST" action="index.php?uc=suiviFrais&action=SelectionnerMois"> 
+    <form method="POST" action="index.php?uc=validerFrais&action=modification"> 
         <table class="listeLegere">
            <caption><i>Elements forfaitisés</i></caption>
             
@@ -70,5 +70,7 @@
         ?>
     </table>
         </form>
-</div>     
+    <center><a href="index.php?uc=validerFrais&action=validerFicheFrais&id=<?php echo $id;?>" 
+                      onclick="return confirm('Voulez-vous vraiment valider cette fiche ?');">Valider</a></center>
+</div>
     </div>

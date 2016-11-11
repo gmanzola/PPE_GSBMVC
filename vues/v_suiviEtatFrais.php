@@ -1,6 +1,5 @@
 ﻿
-<h3>Fiche de frais du mois <?php echo $numMois."-".$numAnnee?> : 
-    </h3>
+<h3>Fiche de frais du Visiteur "<?php echo $nom. " " .$prenom ?>" du mois <?php echo $numMois . "-" . $numAnnee ?> : </h3>
     <div class="encadre">
     <p>
         Etat : <?php echo $libetat?> depuis le <?php echo $datemodif?> <br> Montant validé : <?php echo $montantvalide?>
