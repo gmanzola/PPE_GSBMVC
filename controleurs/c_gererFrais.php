@@ -18,8 +18,10 @@ if ($group_id == 1) {
             }
         case 'validerMajFraisForfait': {
                 $lesFrais = $_REQUEST['lesFrais'];
+                $choixPuissance = $_REQUEST['choixPuissance'];
                 if (lesQteFraisValides($lesFrais)) {
                     $pdo->majFraisForfait($idvisiteur, $mois, $lesFrais);
+                    $pdo->majForfaitKilometrique($idvisiteur, $mois, $choixPuissance);
                 } else {
                     ajouterErreur("Les valeurs des frais doivent être numériques");
                     include("vues/v_erreurs.php");
@@ -48,10 +50,8 @@ if ($group_id == 1) {
     $lesFraisForfait = $pdo->getLesFraisForfait($idvisiteur, $mois);
     
     $lesPuissances = $pdo->getLesPuissances();
-    // Afin de sélectionner par défaut une puisssance dans la zone de liste
-    // on demande toutes les clés, et on prend la première,
-    $lesCles = array_keys($lesPuissances);
-    $puissanceASelectionner = $lesCles[0];
+    // Afin de sélectionner la puissance saisir on la recupere via requete
+    $puissanceVisiteur = $pdo->getLeForfaitKilometrique($idvisiteur, $mois);
     
     include("vues/v_listeFraisForfait.php");
     include("vues/v_listeFraisHorsForfait.php");

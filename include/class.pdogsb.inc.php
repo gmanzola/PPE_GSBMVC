@@ -198,15 +198,29 @@ class PdoGsb {
         }
     }
 
-    /**
+         /**
      * met à jour le forfait kilometrique
      * pour le mois et le visiteur concerné
      * @param $idvisiteur $mois $choixPuissance
      * @param $mois sous la forme aaaamm
      */
     public function majForfaitKilometrique($idvisiteur, $mois, $choixPuissance) {
-        $req = "update lignefraisforfait set idfraisforfait = '$choixPuissance' where idvisiteur ='$idvisiteur' and mois = '$mois' and idfraisforfait ='km'";
+        $req = "update lignefraisforfait set idfraisforfait = '$choixPuissance' where idfraisforfait IN ('km','km1','km2','km3') and idvisiteur ='$idvisiteur' and mois = '$mois'";
         PdoGsb::$monPdo->exec($req);
+    }
+    
+    /**
+     *  retourne l'id du forfait kilometrique du Visiteur pour le mois choisi
+     * @param type $idvisiteur
+     * @param type $mois
+     * @return type
+     */
+    public function getLeForfaitKilometrique($idvisiteur, $mois){
+        $req = "SELECT id FROM typevehicule where EXISTS (SELECT * FROM lignefraisforfait WHERE lignefraisforfait.idfraisforfait=typevehicule.id and idvisiteur ='$idvisiteur' and mois ='$mois')";
+        $res = PdoGsb::$monPdo->query($req);
+        $laLigne = $res->fetch();
+        // on retourne laLigne[0] car on veut seulement les infos de l'indice 0 cad l'ID
+        return $laLigne[0];
     }
 
     /**

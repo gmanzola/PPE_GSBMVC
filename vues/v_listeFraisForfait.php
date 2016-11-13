@@ -1,6 +1,6 @@
 <div id="contenu">
+    
       <h2>Renseigner ma fiche de frais du mois <?php echo $numMois."-".$numAnnee ?></h2>
-         
       <form method="POST"  action="index.php?uc=gererFrais&action=validerMajFraisForfait">
       <div class="corpsForm">
           
@@ -32,7 +32,7 @@
                                 $id = $unePuissance['id'];
 				$type =  $unePuissance['typevehicule'];
 				$puissance =  $unePuissance['puissance'];
-				if($lesPuissances == $puissanceASelectionner){
+				if($id == $puissanceVisiteur){
 				?>
                     <option selected value="<?php echo $id ?>"><?php echo  $type." ".$puissance ?> </option>
 				<?php 
@@ -46,7 +46,6 @@
            
 		   ?>
                     </select>
-
           </fieldset>
       </div>
       <div class="piedForm">
