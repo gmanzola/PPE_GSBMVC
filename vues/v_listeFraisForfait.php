@@ -23,8 +23,8 @@
 				}
 			?>
                                         
-        <label for="puissance" accesskey="n">Puissance : </label>
-        <select id="puissance" name="puissance">
+        <label for="choixPuissance" accesskey="n">Puissance : </label>
+        <select id="choixPuissance" name="choixPuissance">
 
                                         <?php
 			foreach ($lesPuissances as $unePuissance)

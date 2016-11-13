@@ -160,6 +160,16 @@ class PdoGsb {
             PdoGsb::$monPdo->exec($req);
         }
     }
+     /**
+     * met à jour le forfait kilometrique
+     * pour le mois et le visiteur concerné
+     * @param $idvisiteur $mois $choixPuissance
+     * @param $mois sous la forme aaaamm
+     */
+    public function majForfaitKilometrique($idvisiteur, $mois, $choixPuissance) {
+        $req = "update lignefraisforfait set idfraisforfait = '$choixPuissance' where idvisiteur ='$idvisiteur' and mois = '$mois' and idfraisforfait ='km'";
+        PdoGsb::$monPdo->exec($req);
+    }
 
     /**
      * met à jour le nombre de justificatifs de la table ficheFrais
@@ -168,7 +178,7 @@ class PdoGsb {
      * @param $mois sous la forme aaaamm
      */
     public function majNbJustificatifs($idvisiteur, $mois, $nbjustificatifs) {
-        $req = "update fichefrais set nbjustificatifs = $nbjustificatifs
+        $req = "update fichefrais set nbjustificatifs = '$nbjustificatifs'
 		where fichefrais.idvisiteur = '$idvisiteur' and fichefrais.mois = '$mois'";
         PdoGsb::$monPdo->exec($req);
     }

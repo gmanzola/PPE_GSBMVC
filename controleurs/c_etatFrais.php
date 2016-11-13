@@ -35,7 +35,8 @@ if ($group_id == 1) {
                 break;
             }
     }
-} else {
+}
+else {
     include("vues/accesRefuseComptable.php");
 }
 ?>

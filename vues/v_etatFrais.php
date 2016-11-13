@@ -4,9 +4,8 @@
     <div class="encadre">
     <p>
         Etat : <?php echo $libetat?> depuis le <?php echo $datemodif?> <br> Montant validé : <?php echo $montantvalide?>
-              
-                     
     </p>
+
   	<table class="listeLegere">
   	   <caption>Eléments forfaitisés </caption>
         <tr>
@@ -19,7 +18,7 @@
 		 <?php
         }
 		?>
-		</tr>
+		</tr>   
         <tr>
         <?php
           foreach (  $lesFraisForfait as $unFraisForfait  ) 
@@ -33,8 +32,7 @@
 		</tr>
     </table>
   	<table class="listeLegere">
-  	   <caption>Descriptif des éléments hors forfait -<?php echo $nbjustificatifs ?> justificatifs reçus -
-       </caption>
+  	   <caption>Descriptif des éléments hors forfait -<?php echo $nbjustificatifs ?> justificatifs reçus - </caption>
              <tr>
                 <th class="date">Date</th>
                 <th class="libelle">Libellé</th>
@@ -59,6 +57,13 @@
           }
 		?>
     </table>
+    
+    <p class="pdf">
+    
+    <center><a href="index.php?uc=etatFrais&action=fichePdf&idvisiteur=<?php echo $idvisiteur ?>&mois=<?php echo $leMois ?>"
+               onclick="return confirm('Voulez vous generer votre fiche ?');">
+               <input type="submit" value="Génerer un pdf"/></a></center>
+    </p>
   </div>
  
 
