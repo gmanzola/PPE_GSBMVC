@@ -70,7 +70,7 @@
         ?>
     </table>
         </form>
-    <center><a href="index.php?uc=validerFrais&action=validerFicheFrais" 
+    <center><a href="index.php?uc=validerFrais&action=validerFicheFrais&id=<?php echo $id ?>" 
                       onclick="return confirm('Voulez-vous vraiment valider cette fiche ?');">Valider</a></center>
 </div>
     </div>

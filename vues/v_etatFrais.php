@@ -2,6 +2,10 @@
 <h3>Fiche de frais du mois <?php echo $numMois."-".$numAnnee?> : 
     </h3>
     <div class="encadre">
+        <?php $nomvisiteur = $_SESSION['prenom'] . " " . $_SESSION['nom']; ?>
+        <?php $leMoisNew = substr($leMois, 4,2); ?>
+        <?php $annee = substr($leMois, 0,4); ?>
+        
     <p>
         Etat : <?php echo $libetat?> depuis le <?php echo $datemodif?> <br> Montant validé : <?php echo $montantvalide?>
     </p>
@@ -60,7 +64,7 @@
     
     <p class="pdf">
     
-    <center><a href="index.php?uc=etatFrais&action=fichePdf&idvisiteur=<?php echo $idvisiteur ?>&mois=<?php echo $leMois ?>"
+    <center><a href="index.php?uc=etatFrais&action=fichePdf&nomvisiteur=<?php echo $nomvisiteur; ?>&mois=<?php echo $leMoisNew; ?>&moistotal=<?php echo $leMois; ?>&annee=<?php echo $annee; ?>&idvisiteur=<?php echo $idvisiteur; ?>"
                onclick="return confirm('Voulez vous generer votre fiche ?');">
                <input type="submit" value="Génerer un pdf"/></a></center>
     </p>

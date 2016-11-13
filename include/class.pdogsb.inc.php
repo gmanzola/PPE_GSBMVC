@@ -118,7 +118,44 @@ class PdoGsb {
         $lesLignes = $res->fetchAll();
         return $lesLignes;
     }
-    
+
+    /**
+     * fonction qui rassemble les parametres du tableau pdf 
+     * @param type $idvisiteur
+     * @param type $mois
+     * @return type
+     */
+    public function getLesFraisForfaitPdf($idvisiteur, $mois) {
+        $req = "select fraisforfait.id as idfrais, fraisforfait.libelle as libelle,
+		lignefraisforfait.quantite as quantite, fraisforfait.montant as montant, (quantite * montant) as total from lignefraisforfait inner join fraisforfait
+		on fraisforfait.id = lignefraisforfait.idfraisforfait
+		where lignefraisforfait.idvisiteur ='$idvisiteur' and lignefraisforfait.mois='$mois'
+		order by lignefraisforfait.idfraisforfait";
+        $res = PdoGsb::$monPdo->query($req);
+        $lesLignes = $res->fetchAll();
+        return $lesLignes;
+    }
+
+    /**
+     * retourne le total des montants des frais forfaits en fonction du visiteur
+     * @param type $idvisiteur
+     * @param type $mois
+     * @return type
+     */
+    public function getTotalForfaitPdf($idvisiteur, $mois) {
+        $req = "select sum(total) as total
+                from(select sum(quantite * montant) as total
+                from lignefraisforfait inner join fraisforfait
+		on fraisforfait.id = lignefraisforfait.idfraisforfait
+		where lignefraisforfait.idvisiteur ='$idvisiteur' and lignefraisforfait.mois='$mois'
+                union all
+                select sum(montant) as total from lignefraishorsforfait where lignefraishorsforfait.idvisiteur ='$idvisiteur'
+		and lignefraishorsforfait.mois = '$mois') T";
+        $res = PdoGsb::$monPdo->query($req);
+        $lesLignes = $res->fetchAll();
+        return $lesLignes;
+    }
+
     /**
      * Retourne sous forme d'un tableau associatif toutes les lignes de TYPEVEHICULE
      * @return l'id, le typevehicule et la puissance sous la forme d'un tableau associatif
@@ -160,7 +197,8 @@ class PdoGsb {
             PdoGsb::$monPdo->exec($req);
         }
     }
-     /**
+
+    /**
      * met à jour le forfait kilometrique
      * pour le mois et le visiteur concerné
      * @param $idvisiteur $mois $choixPuissance
@@ -312,6 +350,7 @@ class PdoGsb {
         }
         return $lesMois;
     }
+
     /**
      * Retourne les mois pour lesquel des fiches de frais sont à valider 
      * @return type
@@ -334,6 +373,7 @@ class PdoGsb {
         }
         return $lesMois;
     }
+
     /**
      * Retourne les informations d'une fiche de frais d'un visiteur pour un mois donné
      * @param $idvisiteur
@@ -426,6 +466,7 @@ class PdoGsb {
         }
         return $lesVisiteursValidation;
     }
+
     public function getLeVisiteur($idVisiteur) {
         $req = "select * from visiteur where id ='$idVisiteur'";
         $resultat = PdoGsb::$monPdo->query($req);
@@ -467,7 +508,7 @@ class PdoGsb {
         //echo $req;
         PdoGsb::$monPdo->exec($req);
     }
-    
+
     public function mettreEnPaiement($idVisiteur, $choixMois) {
         $req = "update fichefrais set idetat = 'mp',datemodif= now() where idvisiteur = '$idVisiteur' and mois = '$choixMois'";
         //echo $req;

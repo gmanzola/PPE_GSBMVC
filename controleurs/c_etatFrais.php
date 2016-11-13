@@ -34,9 +34,21 @@ if ($group_id == 1) {
                 include("vues/v_etatFrais.php");
                 break;
             }
+        case 'fichePdf':
+            $nomvisiteur2 = $_REQUEST['nomvisiteur'];
+            $mois = $_REQUEST['mois'];
+            $moisTotal = $_REQUEST['moistotal'];
+            $annee = $_REQUEST['annee'];
+            $idvisiteur = $_REQUEST['idvisiteur'];
+            $elementForfait = $pdo->getLesFraisForfaitPdf($idvisiteur, $moisTotal);
+            $horsforfait = $pdo->getLesFraisHorsForfait($idvisiteur, $moisTotal);
+            $totalFrais = $pdo->getTotalForfaitPdf($idvisiteur, $moisTotal);
+            include 'vues/v_fichePdf.php';
+            break;
     }
-}
-else {
+} else {
+    if($action != 'fichePdf'){
     include("vues/accesRefuseComptable.php");
+    }
 }
 ?>
